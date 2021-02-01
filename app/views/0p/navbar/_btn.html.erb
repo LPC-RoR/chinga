@@ -1,0 +1,15 @@
+<!-- Despliega el botón a menos que esté en la página del botón -->
+<!-- las lineas comentadas borran el botón if_current -->
+<%# unless current_page?(link) %>
+<!--div class="btn btn-primary"-->
+	<!--button class="btn btn-outline-primary"-->
+<li class="nav-item <%= 'active' if active %>">
+	<% if delete %>
+		<a class="nav-link" data-method="delete" href=<%=link%>><%= nombre %></a>
+	<% else %>
+		<a class="nav-link" href=<%=link%>><%= nombre %></a>
+	<% end %>
+</li>
+	<!--/button-->
+<!--/div-->
+<%# end %>

@@ -1,0 +1,34 @@
+<!-- IMAGEN -->
+<%= image_tag 'logo.jpg' %>
+
+<!-- MENU -->
+<!--nav class="navbar navbar-expand-sm navbar-light bg-dark"-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+  <!--a class="navbar-brand" href="#">Navbar</a-->
+  <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"-->
+    <!--span class="navbar-toggler-icon"></span-->
+  <!--/button-->
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <ul class="navbar-nav">
+      <!-- Se despiegan SOLO los ítems de MENU que no han sido identificados como "nomenu" -->
+      <% unless nomenu?(controller_name) %>
+
+        <% menu.each do |item| %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: item[0].capitalize, link: item[1], active: item_active(item[1]), delete: false} if display_item_menu?(item[2]) %>
+        <% end %>
+        
+
+          <!-- USUARIO AUTENTICADO -->
+        <% if usuario_signed_in? %>
+          <!-- CUALQUIER USUARIO puede salir de la sesión -->
+          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Salir', link: destroy_usuario_session_path, active: false, delete: true} %>
+        <!-- USUARIO NO AUTENTICADO -->
+        <% else %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Ingreso', link: new_usuario_session_path, active: false, delete: false} %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+</br>

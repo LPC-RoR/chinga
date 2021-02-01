@@ -1,0 +1,20 @@
+<!-- TITULO -->
+<!-- size: determina el tamaño del font -->
+<!-- titulo: Es el texto del título -->
+<!-- a e {'index', 'seleccion', 'new', 'edit' -->
+<h<%= size%>>
+<div class="p-3 mb-2 bg-info text-white">
+	<% case a %>
+	<% when 'index' %>
+		<%= "#{corrige(c)}" %>
+	<% when 'seleccion' %>
+		<%= "? Selecciona #{corrige(c.singularize)}" %>
+	<% when 'new' %>
+		<%= "+ #{corrige(c).singularize.capitalize}" %>
+	<% when 'edit' %>
+		<%= "~ #{corrige(c).singularize.capitalize}" %>
+	<% else %>
+		<%= titulo %>
+	<% end %>
+</div>
+</h<%= size%>>

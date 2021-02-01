@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chinga</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <!--            NAVBAR                     -->
+    <%= render partial: '0p/navbar/navbar' %>
+    <!--            CONTENIDO + MENU DERECHA   -->
+    <div class="container-fluid">
+      <%= yield %>          
+    </div>
+    <%= image_tag 'foot.jpg', class: "mx-auto d-block" %>
+    </br></br></br>
+  </body>
+</html>
