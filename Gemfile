@@ -6,6 +6,18 @@ ruby '2.7.1'
 # PostgreSQL
 gem 'pg'
 
+gem 'bootstrap', '~> 4.5.2'
+gem 'jquery-rails'
+
+gem 'devise'
+
+gem 'kaminari'
+
+gem "roo", "~> 2.8.0"
+
+gem "chartkick"
+
+gem 'carrierwave', '~> 2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.4'
