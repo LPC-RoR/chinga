@@ -1,0 +1,2 @@
+module UltimasHelper
+end

@@ -1,0 +1,10 @@
+<% if @tab == 'listas' %>
+	<%= form_for :lista_base, url: "/equipos/nueva_lista_equipo?equipo_id=#{@objeto.id}" do |form| %>
+		<div class='form-inline'>
+			<%= form.select :lista_id, @activo.listas.collect { |lst| [lst.lista, lst.id] }, include_blank: false, prompt: "Seleccione Lista" %>
+			<%= form.submit '+ Lista'  %>
+			<%= form.submit '- Lista'  %>
+		</div>
+	<% end  %>
+	</br>
+<% end %>

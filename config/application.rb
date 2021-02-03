@@ -54,28 +54,16 @@ module Chinga
     # se usa directamente en 0p/navbar/_navbar.html.erb
 
     config.menu = [
-        ["Gráficos",       "/vistas/graficos",   'usuario'],
-        ["Colecciones",    "/vistas",            'anonimo'],
-        ["Escritorio",     "/vistas/escritorio", 'usuario'],
+        ["Coleccion",      "/vistas",            'anonimo'],
         ["Contribuciones", "/contribuciones",    'usuario'],
         ["Equipos",        "/equipos",           'usuario'],
-        ["Carpetas",       "/carpetas",          'usuario'],
-        ["Administradores","/administradores",   'admin'],
-        ["Areas",          "/areas",             'admin'],
-        ["Conceptos",      "/conceptos",         'admin'],
-        ["Revisiones",     "/revisiones",        'admin'],
-        ["Cargas",         "/cargas",            'admin'] 
+        ["Listas",         "/listas",            'usuario'],
+        ["Administradores","/administradores",     'admin']
     ]
 
     ## ------------------------------------------------- FRAMES
     config.frames = {
         'vistas' => {
-            'index' => {
-                titulo: 'Colecciones',
-                selector: 'Áreas',
-                tabs: ['Completa', 'Pendiente'],
-                action_type: 'tabla'
-            },
             'escritorio' => {
                 titulo: 'Escritorio',
                 selector: 'Carpetas',
@@ -111,12 +99,13 @@ module Chinga
     }
 
     config.x.tables.exceptions = {
-        'publicaciones' => {
+        'elementos' => {
             elementos: {
-                tabs:  ['self'],
+                tabs:  ['self', 'contribuciones'],
                 paginas: ['*'],
                 nuevo:   ['self', 'contribuciones']
-            }
+            },
+            tabs: ['ingreso', 'papelera']
         },
 #        'carpetas'        => {
 #            elementos: {
@@ -144,11 +133,14 @@ module Chinga
     # [2] : Si es true se agrega "objeto_id=#{@objeto.id}"
 
     config.x.btns.exceptions = {
-        'Publicacion'   => {
+        'Elemento'   => {
             conditions: ['crud']
         },
-        'Carpeta'       => {
-            conditions: ['crud']
+        'Lista'       => {
+            conditions: ['crud', 'x'],
+            x_btns: [
+                ['Desclasificar', '/listas/', '/desclasificar', true]
+            ]
         },
         'Carga'         => {
             conditions: ['x', 'crud'],
@@ -176,26 +168,22 @@ module Chinga
 
     # estan condiciones se aplican a FORM y SHOW
     config.x.form.exceptions = {
-        'Publicacion' => {
+        'Elemento' => {
             f_detail: true,
             conditional_fields: [
-                'd_quote',
-                'm_quote',
-                'd_author',
-                'title',
-                'author',
-                'd_journal',
-                'journal',
-                'year',
-                'volume',
-                'pages',
-                'd_doi',
-                'doi',
-                'abstract',
-                'book',
-                'editor',
-                'academic_degree',
-                'ciudad_pais'
+                'titulo',
+                'letra',
+                'autor',
+                'genero',
+                'ciudad_autor',
+                'pais',
+                'interprete',
+                'disco',
+                'link',
+                'forma_musical',
+                'annio_creacion',
+                'annio_estreno',
+                'otro_soporte'
             ]
         }
     }
@@ -203,8 +191,8 @@ module Chinga
     ## ------------------------------------------------- SHOW
 
     config.x.show.exceptions = {
-        'Publicacion' => {
-            elementos: [:clasifica, :detalle, :tabla, 'show_title'],
+        'Elemento' => {
+            elementos: [:clasifica, :tabla, :inline_form, 'show_title'],
         },
         'Equipo'     => {
             elementos: [:detalle, :inline_form]
@@ -212,7 +200,7 @@ module Chinga
     }
 
     config.x.show.links = {
-        links:     ['Publicacion'],
+        links:     ['Elemento'],
         bt_links:  ['Publicacion'],
         hmt_links: ['Publicacion'],
         bt_objects: {

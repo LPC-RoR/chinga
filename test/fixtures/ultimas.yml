@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ultima: MyString
+  sha1: MyString
+
+two:
+  ultima: MyString
+  sha1: MyString

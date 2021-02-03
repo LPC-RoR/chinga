@@ -24,25 +24,10 @@ class ApplicationController < ActionController::Base
 	        @perfil.save
 	      end
 
-	      # 3.- VERIFICA INVESTIGADOR
-	      @investigador = Investigador.find_by(email: @perfil.email)
-	      # 1.- SI Hay que crear el Investigador?
-	      if (@administrador.blank? and @perfil.investigador.blank? and @investigador.blank?)
-	        @investigador = Investigador.create(investigador: @perfil.email, email: @perfil.email)
-	        @perfil.investigador = @investigador
-	        @perfil.save
-	      end
-
-	      if @perfil.carpetas.empty?
-	        @perfil.carpetas.create(carpeta: 'Revisar')
-	        @perfil.carpetas.create(carpeta: 'Excluidas')
-	        @perfil.carpetas.create(carpeta: 'Postergadas')
-	        @perfil.carpetas.create(carpeta: 'Revisadas')
-	      end
-
 	      session[:perfil_base]      = @perfil
 	      session[:perfil_activo]    = @perfil
 	      session[:administrador]    = @perfil.administrador
 	      session[:es_administrador] = @perfil.administrador.present?
 	    end
 	end
+end

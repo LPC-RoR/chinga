@@ -116,8 +116,10 @@ module ApplicationHelper
 	# Método de apoyo usado en get_new_link (abajo)
 	def f_controller(controller)
 		case controller
-		when 'ingresos'
-			'publicaciones'
+		when 'contribuciones'
+			'elementos'
+		when 'vistas'
+			'elementos'
 		else
 			controller
 		end
@@ -207,10 +209,10 @@ module ApplicationHelper
 		case objeto.class.name
 		when 'Carga'
 			objeto.estado == 'ingreso'
-		when 'Publicacion'
-			objeto.origen == 'ingreso'
-		when 'Carpeta'
-			not Carpeta::NOT_MODIFY.include?(objeto.carpeta)
+		when 'Elemento'
+			objeto.estado == 'ingreso'
+		when 'Lista'
+			controller_name == 'listas'
 		when 'Texto'
 			false
 		when 'Clasificacion'
@@ -226,6 +228,8 @@ module ApplicationHelper
 			controller_name == 'publicaciones'
 		when 'Clasificacion'
 			objeto.clasificacion != btn
+		when 'Lista'
+			 ['elementos', 'equipos'].include?(controller_name)
 		end
 	end
 
@@ -263,8 +267,8 @@ module ApplicationHelper
 	# apoyo de filtro_condicional_field? (abajo)
 	def get_field_condition(objeto, field)
 		case objeto.class.name
-		when 'Publicacion'
-			objeto.origen == 'ingreso'
+		when 'Elemento'
+			true
 		end
 	end
 
@@ -309,8 +313,8 @@ module ApplicationHelper
 			if Rails.configuration.x.show.exceptions[objeto.class.name][:elementos].present?
 				if Rails.configuration.x.show.exceptions[objeto.class.name][:elementos].include?('show_title')
 					case objeto.class.name
-					when 'Publicacion'
-						objeto.title
+					when 'Elemento'
+						objeto.titulo
 					end
 				else
 					objeto.send(objeto.class.name.downcase)
@@ -325,15 +329,15 @@ module ApplicationHelper
 
 	def show_links(objeto)
 		case objeto.class.name
-		when 'Publicacion'
+		when 'Elemento'
 			[
-				['Editar',     [:edit, objeto], objeto.origen == 'ingreso'],
-				['Papelera',   "/publicaciones/estado?publicacion_id=#{objeto.id}&estado=papelera",     (['ingreso', 'duplicado'].include?(objeto.estado) and objeto.origen = 'ingreso')],
-				['Eliminar',   "/publicaciones/estado?publicacion_id=#{objeto.id}&estado=eliminado",    ['papelera'].include?(objeto.estado)],
-				['Publicar',   "/publicaciones/estado?publicacion_id=#{objeto.id}&estado=publicada",    (['ingreso'].include?(objeto.estado) and objeto.title.present? and objeto.author.present? and objeto.journal.present?)],	
-				['Ingreso',    "/publicaciones/estado?publicacion_id=#{objeto.id}&estado=ingreso",      (['publicado', 'papelera'].include?(objeto.estado) and objeto.origen == 'ingreso')],
-				['Múltiple',   "/publicaciones/estado?publicacion_id=#{objeto.id}&estado=multiple",     objeto.estado == 'duplicado'],
-				['Corrección', "/publicaciones/estado?publicacion_id=#{objeto.id}&estado=correccion",   (objeto.estado == 'publicada' and objeto.origen == 'ingreso' and objeto.textos.empty?)]
+				['Editar',     [:edit, objeto], objeto.estado == 'ingreso'],
+				['Papelera',   "/elementos/#{objeto.id}/estado?estado=papelera",     (['ingreso', 'duplicado'].include?(objeto.estado) and objeto.listas.any?) ],
+				['Eliminar',   "/elementos/#{objeto.id}/estado?estado=eliminado",    (['ingreso', 'papelera'].include?(objeto.estado) and objeto.listas.empty?)],
+				['Publicar',   "/elementos/#{objeto.id}/estado?estado=publicada",    (['ingreso'].include?(objeto.estado) and objeto.titulo.present? and objeto.autor.present? and objeto.letra.present?)],	
+				['Ingreso',    "/elementos/#{objeto.id}/estado?estado=ingreso",      ['publicado', 'papelera'].include?(objeto.estado) ],
+				['Múltiple',   "/elementos/estado?elemento_id=#{objeto.id}&estado=multiple",     objeto.estado == 'duplicado'],
+				['Corrección', "/elementos/#{objeto.id}/estado?estado=correccion",   (objeto.estado == 'publicada' and usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id']) ]
 			]
 		end
 	end

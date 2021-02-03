@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titulo: MyString
+  letra: MyText
+  autor: MyString
+  genero: MyString
+  pais: MyString
+  ciudad_autor: MyString
+  interprete: MyString
+  disco: MyString
+  link: MyString
+  forma_musical: MyString
+  annio_creacion: 1
+  annio_estreno: 1
+  otro_soporte: MyString
+
+two:
+  titulo: MyString
+  letra: MyText
+  autor: MyString
+  genero: MyString
+  pais: MyString
+  ciudad_autor: MyString
+  interprete: MyString
+  disco: MyString
+  link: MyString
+  forma_musical: MyString
+  annio_creacion: 1
+  annio_estreno: 1
+  otro_soporte: MyString

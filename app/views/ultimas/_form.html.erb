@@ -1,0 +1,27 @@
+<%= form_with(model: ultima, local: true) do |form| %>
+  <% if ultima.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ultima.errors.count, "error") %> prohibited this ultima from being saved:</h2>
+
+      <ul>
+      <% ultima.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ultima %>
+    <%= form.text_field :ultima %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sha1 %>
+    <%= form.text_field :sha1 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

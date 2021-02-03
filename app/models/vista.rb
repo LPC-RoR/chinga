@@ -1,0 +1,2 @@
+class Vista < ApplicationRecord
+end

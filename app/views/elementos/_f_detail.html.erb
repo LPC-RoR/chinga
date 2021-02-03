@@ -1,0 +1,115 @@
+<% if filtro_conditional_field?(@objeto, 'titulo') %>
+	<div class='row'>
+		<div class='col-md-12'>
+			<small><%= form.label 'Titulo' %></small></br>
+			<%= form.text_field(:titulo, class: 'form-control') %>
+		</div>
+	</div>
+<% end %>
+
+<div class='row'>
+	<div class='col-md-6'>
+
+		<% if filtro_conditional_field?(@objeto, 'autor') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Autor' %></small></br>
+					<%= form.text_field(:autor, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'genero') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Genero' %></small></br>
+					<%= form.text_field(:genero, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'ciudad_autor') or filtro_conditional_field?(@objeto, 'pais') %>
+			<div class='row'>
+				<div class='col-md-6'>
+					<small><%= form.label 'Ciudad Autor' %></small></br>
+					<%= form.text_field(:ciudad_autor, class: 'form-control') %>
+				</div>
+				<div class='col-md-6'>
+					<small><%= form.label 'Pais' %></small></br>
+					<%= form.text_field(:pais, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'interprete') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Interprete' %></small></br>
+					<%= form.text_field(:interprete, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'disco') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Disco' %></small></br>
+					<%= form.text_field(:disco, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'link') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Link' %></small></br>
+					<%= form.text_field(:link, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'forma_musical') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Forma Musical' %></small></br>
+					<%= form.text_field(:forma_musical, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'annio_creacion') or filtro_conditional_field?(@objeto, 'annio_estreno') %>
+			<div class='row'>
+				<div class='col-md-6'>
+					<small><%= form.label 'Año Creación' %></small></br>
+					<%= form.text_field(:annio_creacion, class: 'form-control') %>
+				</div>
+				<div class='col-md-6'>
+					<small><%= form.label 'Año Estreno' %></small></br>
+					<%= form.text_field(:annio_estreno, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'otro_soporte') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Otro Soporte' %></small></br>
+					<%= form.text_field(:otro_soporte, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
+	</div>
+
+	<div class='col-md-6'>
+		<div class='row'>
+			<div class='col-md-12'>
+				<small><%= form.label 'Letra' %></small></br>
+			  	<%= form.text_area :letra, size: '66x25' %></br>
+		 	</div>
+		</div>
+	</div>
+</div>
+
+<%= form.hidden_field :estado %>
+<%= form.hidden_field :perfil_id %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  linea: MyString
+  ultima: MyString
+  n_parrafo: 1
+  n_linea: 1
+  texto_id: 1
+  ultima_id: 1
+
+two:
+  linea: MyString
+  ultima: MyString
+  n_parrafo: 1
+  n_linea: 1
+  texto_id: 1
+  ultima_id: 1

@@ -1,0 +1,82 @@
+<%= form_with(model: elemento, local: true) do |form| %>
+  <% if elemento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(elemento.errors.count, "error") %> prohibited this elemento from being saved:</h2>
+
+      <ul>
+      <% elemento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :titulo %>
+    <%= form.text_field :titulo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :letra %>
+    <%= form.text_area :letra %>
+  </div>
+
+  <div class="field">
+    <%= form.label :autor %>
+    <%= form.text_field :autor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genero %>
+    <%= form.text_field :genero %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pais %>
+    <%= form.text_field :pais %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ciudad_autor %>
+    <%= form.text_field :ciudad_autor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :interprete %>
+    <%= form.text_field :interprete %>
+  </div>
+
+  <div class="field">
+    <%= form.label :disco %>
+    <%= form.text_field :disco %>
+  </div>
+
+  <div class="field">
+    <%= form.label :link %>
+    <%= form.text_field :link %>
+  </div>
+
+  <div class="field">
+    <%= form.label :forma_musical %>
+    <%= form.text_field :forma_musical %>
+  </div>
+
+  <div class="field">
+    <%= form.label :annio_creacion %>
+    <%= form.number_field :annio_creacion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :annio_estreno %>
+    <%= form.number_field :annio_estreno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :otro_soporte %>
+    <%= form.text_field :otro_soporte %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
