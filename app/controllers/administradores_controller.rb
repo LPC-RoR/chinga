@@ -1,6 +1,7 @@
 class AdministradoresController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :inicia_session
+  before_action :inicia_sesion
+  before_action :carga_temas_ayuda
   before_action :set_administrador, only: %i[ show edit update destroy ]
 
   # GET /administradores or /administradores.json

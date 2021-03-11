@@ -42,7 +42,42 @@ module Chinga
         tabla:        true,
         adjuntos:    false
     }
+
+    ## ------------------------------------------------- COLORES ESTRUCTURA
+    # En 'app' los controladores son los que NO son de los otros tipos
+    config.colors = {
+        'navbar' => {
+            color: 'dark'
+        },
+        'app' => {
+            color: 'dark'
+        },
+        'help' => {
+            color: 'secondary',
+            controllers: ['tema_ayudas', 'tutoriales', 'pasos', 'mensajes']
+        },
+        'data' => {
+            color: 'success',
+            controllers: ['etapas', 'tablas', 'lineas', 'especificaciones', 'observaciones', 'archivos', 'imagenes']
+        }
+    }
+
+    ## ------------------------------------------------- CONFIGURACION HOME
+
+    config.home = {
+        favicon: true,
+        imagen_portada: true,
+        titulo_size: '1',
+        titulo_color: 'secondary',
+        detalle_size: '6',
+        detalle_color: 'secondary',
+        foot_size: 'quarter'
+    }
+
     ## ------------------------------------------------- MENU
+    config.menu_con_logo = true
+    config.logo_sobre_el_menu = false
+
     # controladores que NO despliegan MENU
     # se usa en nomenu?
     config.x.menu.exceptions_controllers = ['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']    
@@ -54,12 +89,16 @@ module Chinga
     # se usa directamente en 0p/navbar/_navbar.html.erb
 
     config.menu = [
-        ["Coleccion",      "/vistas",            'anonimo'],
-        ["Contribuciones", "/contribuciones",    'usuario'],
-        ["Equipos",        "/equipos",           'usuario'],
-        ["Listas",         "/listas",            'usuario'],
-        ["Administradores","/administradores",     'admin']
+        ["Coleccion",      "/vistas",           'anonimo'],
+        ["Contribuciones", "/contribuciones",   'usuario'],
+        ["Equipos",        "/equipos",          'usuario'],
+        ["Listas",         "/listas",           'usuario'],
+        ["Administradores","/administradores",    'admin'],
+        ["Temas Ayuda",     "/tema_ayudas",       'admin'] 
     ]
+
+    config.menu_con_contacto = true
+    config.menu_con_ayuda = true
 
     ## ------------------------------------------------- FRAMES
     config.frames = {
@@ -125,6 +164,12 @@ module Chinga
         }
     }
 
+    config.alias_controllers = {
+        'vistas' => 'elementos'
+    }
+
+    config.sortable_tables = []
+
     ## ------------------------------------------------- TABLA | BTNS
 
     ## x_btns
@@ -166,10 +211,14 @@ module Chinga
 
     ## ------------------------------------------------- FORM
 
+    config.detail_types_controller = {
+        dependencias: ['mejoras', 'mensajes', 'observaciones', 'tema_ayudas', 'tutoriales', 'pasos'],
+        modelo: ['elementos']
+    }
+
     # estan condiciones se aplican a FORM y SHOW
     config.x.form.exceptions = {
         'Elemento' => {
-            f_detail: true,
             conditional_fields: [
                 'titulo',
                 'letra',
@@ -185,7 +234,10 @@ module Chinga
                 'annio_estreno',
                 'otro_soporte'
             ]
-        }
+        },
+        'Mensaje' => {
+            conditional_fields: ['email']
+        },
     }
 
     ## ------------------------------------------------- SHOW

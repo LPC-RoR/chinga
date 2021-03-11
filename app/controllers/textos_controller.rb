@@ -1,6 +1,7 @@
 class TextosController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :inicia_session
+  before_action :inicia_sesion
+  before_action :carga_temas_ayuda
   before_action :set_texto, only: %i[ show edit update destroy ]
 
   # GET /textos or /textos.json

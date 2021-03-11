@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_234258) do
+ActiveRecord::Schema.define(version: 2021_03_10_185246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,34 @@ ActiveRecord::Schema.define(version: 2021_02_02_234258) do
     t.index ["perfil_id"], name: "index_listas_on_perfil_id"
   end
 
+  create_table "mensajes", force: :cascade do |t|
+    t.string "mensaje"
+    t.string "tipo"
+    t.string "estado"
+    t.string "email"
+    t.datetime "fecha_envio"
+    t.text "detalle"
+    t.integer "perfil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_mensajes_on_email"
+    t.index ["estado"], name: "index_mensajes_on_estado"
+    t.index ["fecha_envio"], name: "index_mensajes_on_fecha_envio"
+    t.index ["perfil_id"], name: "index_mensajes_on_perfil_id"
+    t.index ["tipo"], name: "index_mensajes_on_tipo"
+  end
+
+  create_table "pasos", force: :cascade do |t|
+    t.integer "orden"
+    t.string "paso"
+    t.text "detalle"
+    t.integer "tutorial_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_pasos_on_orden"
+    t.index ["tutorial_id"], name: "index_pasos_on_tutorial_id"
+  end
+
   create_table "perfiles", force: :cascade do |t|
     t.string "email"
     t.integer "usuario_id"
@@ -142,6 +170,19 @@ ActiveRecord::Schema.define(version: 2021_02_02_234258) do
     t.index ["usuario_id"], name: "index_perfiles_on_usuario_id"
   end
 
+  create_table "tema_ayudas", force: :cascade do |t|
+    t.integer "orden"
+    t.string "tema_ayuda"
+    t.text "detalle"
+    t.string "tipo"
+    t.string "ilustracion"
+    t.string "ilustracion_cache"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_tema_ayudas_on_orden"
+    t.index ["tipo"], name: "index_tema_ayudas_on_tipo"
+  end
+
   create_table "textos", force: :cascade do |t|
     t.string "texto"
     t.string "sha1"
@@ -149,6 +190,17 @@ ActiveRecord::Schema.define(version: 2021_02_02_234258) do
     t.datetime "updated_at", null: false
     t.index ["sha1"], name: "index_textos_on_sha1"
     t.index ["texto"], name: "index_textos_on_texto"
+  end
+
+  create_table "tutoriales", force: :cascade do |t|
+    t.integer "orden"
+    t.string "tutorial"
+    t.text "detalle"
+    t.integer "tema_ayuda_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_tutoriales_on_orden"
+    t.index ["tema_ayuda_id"], name: "index_tutoriales_on_tema_ayuda_id"
   end
 
   create_table "ultimas", force: :cascade do |t|

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mensajes
   resources :administradores
   resources :clasificaciones
   resources :contribuciones
@@ -19,13 +20,34 @@ Rails.application.routes.draw do
     match :desclasificar, via: :get, on: :member
   end
   resources :perfiles
+  resources :pasos
+  resources :recursos do
+    collection do
+      match :inicia_sesion, via: :get
+      match :tablas, via: :get
+      match :manual, via: :get
+    end
+  end
+  resources :tema_ayudas do
+    resources :tutoriales
+  end
   resources :textos
+  resources :tutoriales do
+    resources :pasos
+  end
   resources :ultimas
   resources :vistas
 
-  devise_for :usuarios
+  devise_for :usuarios, controllers: {
+        confirmations: 'usuarios/confirmations',
+#        omniauth_callbacks: 'usuarios/omniauth_callbacks',
+        passwords: 'usuarios/passwords',
+        registrations: 'usuarios/registrations',
+        sessions: 'usuarios/sessions',
+        unlocks: 'usuarios/unlocks'
+      }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'vistas#index'
+  root 'recursos#home'
 
 end

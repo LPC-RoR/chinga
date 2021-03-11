@@ -3,6 +3,32 @@ module ApplicationHelper
 
 	## CAPITAN
 
+	## ------------------------------------------------------- HOME
+
+	def imagen_portada
+		Rails.configuration.home[:imagen_portada]
+	end
+
+	def t_size
+		Rails.configuration.home[:titulo_size]
+	end
+
+	def t_color
+		Rails.configuration.home[:titulo_color]
+	end
+
+	def d_size
+		Rails.configuration.home[:detalle_size]
+	end
+
+	def d_color
+		Rails.configuration.home[:detalle_color]
+	end
+
+	def favicon?
+		Rails.configuration.home[:favicon]
+	end
+
 	## ------------------------------------------------------- MENU
 
 	# Obtiene los controladores que no despliegan menu
@@ -12,6 +38,15 @@ module ApplicationHelper
 
 	def menu
 		Rails.configuration.menu
+	end
+
+	def foot_image
+		size =  Rails.configuration.home[:foot_size]
+		TemaAyuda.where(tipo: 'foot').any? ? TemaAyuda.where(tipo: 'foot').first.ilustracion.send(size).url : nil
+	end
+
+	def portada_image
+		TemaAyuda.where(tipo: 'portada').any? ? TemaAyuda.where(tipo: 'portada').first.ilustracion.url : nil
 	end
 
 	def item_active(link)
@@ -32,6 +67,22 @@ module ApplicationHelper
 		when 'excluir'
 			false
 		end
+	end
+
+	def menu_con_ayuda
+		Rails.configuration.menu_con_ayuda
+	end
+
+	def menu_con_contacto
+		Rails.configuration.menu_con_contacto
+	end
+
+	def menu_con_logo
+		Rails.configuration.menu_con_logo
+	end
+
+	def logo_sobre_el_menu
+		Rails.configuration.logo_sobre_el_menu
 	end
 
 	## ------------------------------------------------------- FRAME
@@ -64,16 +115,7 @@ module ApplicationHelper
 
 	# valida el uso de alias en las tablas
 	def alias_tabla(controlador)
-		case controlador
-		when 'papers'
-			'publicaciones'
-		when 'hijos'
-			'conceptos'
-		when 'ingresos'
-			'publicaciones'
-		else
-			controlador
-		end
+		Rails.configuration.alias_controllers[controlador].present? ? Rails.configuration.alias_controllers[controlador] : controlador
 	end
 
 	# Maneja comportamiento por defecto y excepciones de TABLA
@@ -113,18 +155,6 @@ module ApplicationHelper
 		end
 	end
 
-	# Método de apoyo usado en get_new_link (abajo)
-	def f_controller(controller)
-		case controller
-		when 'contribuciones'
-			'elementos'
-		when 'vistas'
-			'elementos'
-		else
-			controller
-		end
-	end
-
 	# Objtiene LINK DEL BOTON NEWf
 	def get_new_link(controller)
 		# CONTROLA EXCEPCIONES
@@ -148,24 +178,8 @@ module ApplicationHelper
 
 		# GENERA EL LINK
 		case tipo_new
-		when 'mask'
-			"/#{controller}/mask_new?origen=#{controller_name}"
-		# TIPO_NEW = 'child_nuevo'
-		# {'pedidos'}
-		when 'child_nuevo'
-			"/#{controller}/nuevo?#{@objeto.class.name.downcase}_id=#{@objeto.id}"
-		# TIPO_NEW = 'child_sel' : seleccion ? parametro_padre
-		# {'empleados', 'productos', 'clientes(*)'}
-		when 'child_sel'
-			# TIPO_NEW = 'child_sel'
-			# TABLA_SEL = 'controller'
-			"/#{controller.classify.constantize::TABLA_SEL}/seleccion?#{@objeto.class.name.downcase}_id=#{@objeto.id}"
-		# TIPO_NEW = 'detalle_pedido' : seleccion ? parametro_padre & empresa
-		# {'empleados', 'productos', 'clientes(*)'}
-		when 'detalle_pedido'
-			"/#{controller.classify.constantize::SELECTOR}/seleccion?#{@objeto.class.name.downcase}_id=#{@objeto.id}&empresa_id=#{@objeto.registro.empresa.id}"
 		when 'normal'
-			f_controller(controller_name) == controller ? "/#{controller}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{controller}/new"
+			(alias_tabla(controller_name) == controller or @objeto.blank?) ? "/#{controller}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{controller}/new"
 		end
 	end
 
@@ -203,35 +217,18 @@ module ApplicationHelper
 		Rails.configuration.x.tables.exceptions[controller][:estados]
 	end
 
+	def sortable?(controller)
+		Rails.configuration.sortable_tables.include?(controller)
+	end
+
+	def sortable(column, title = nil)
+	  title ||= column.titleize
+	  css_class = column == sort_column ? "current #{sort_direction}" : nil
+	  direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+	  link_to title, {:sort => column, :direction => direction, html_options: @options}, {:class => css_class}
+	end
+
 	## ------------------------------------------------------- TABLA | BTNS
-
-	def crud_conditions(objeto)
-		case objeto.class.name
-		when 'Carga'
-			objeto.estado == 'ingreso'
-		when 'Elemento'
-			objeto.estado == 'ingreso'
-		when 'Lista'
-			controller_name == 'listas'
-		when 'Texto'
-			false
-		when 'Clasificacion'
-			false
-		end
-	end
-
-	def x_conditions(objeto, btn)
-		case objeto.class.name
-		when 'Carga'
-			objeto.estado == 'ingreso'
-		when 'Texto'
-			controller_name == 'publicaciones'
-		when 'Clasificacion'
-			objeto.clasificacion != btn
-		when 'Lista'
-			 ['elementos', 'equipos'].include?(controller_name)
-		end
-	end
 
 	def btns?(objeto, tipo)
 		if Rails.configuration.x.btns.exceptions[objeto.class.name].present?
@@ -264,24 +261,26 @@ module ApplicationHelper
 
 	## ------------------------------------------------------- FORM & SHOW
 
-	# apoyo de filtro_condicional_field? (abajo)
-	def get_field_condition(objeto, field)
-		case objeto.class.name
-		when 'Elemento'
-			true
-		end
-	end
-
 	# Manejo de campos condicionales FORM y SHOW
 	def filtro_conditional_field?(objeto, field)
 		if Rails.configuration.x.form.exceptions[objeto.class.name].present?
-			Rails.configuration.x.form.exceptions[objeto.class.name][:conditional_fields].include?(field) ? get_field_condition(objeto, field) : false
+			Rails.configuration.x.form.exceptions[objeto.class.name][:conditional_fields].include?(field) ? get_field_condition(objeto, field) : true
 		else
 			true
 		end
 	end
 
 	## ------------------------------------------------------- FORM
+
+	def detail_partial(controller)
+		if Rails.configuration.detail_types_controller[:dependencias].include?(controller)
+			"0help/#{controller.singularize}/detail"
+		elsif Rails.configuration.detail_types_controller[:modelo].include?(controller)
+			"#{controller}/detail"
+		else
+			'0p/form/detail'
+		end
+	end
 
 	def form_f_detail?(objeto)
 		if Rails.configuration.x.form.exceptions[objeto.class.name].present?
@@ -292,6 +291,14 @@ module ApplicationHelper
 	end
 
 	## ------------------------------------------------------- SHOW
+
+	def status?(objeto)
+		if Rails.configuration.x.show.exceptions[objeto.class.name].present?
+		Rails.configuration.x.show.exceptions[objeto.class.name][:elementos].include?(:status)
+		else
+			false
+		end
+	end
 
 	# Maneja comportamiento por defecto y excepciones de SHOW
 	def in_show?(objeto, label)
@@ -312,33 +319,15 @@ module ApplicationHelper
 		if Rails.configuration.x.show.exceptions[objeto.class.name].present?
 			if Rails.configuration.x.show.exceptions[objeto.class.name][:elementos].present?
 				if Rails.configuration.x.show.exceptions[objeto.class.name][:elementos].include?('show_title')
-					case objeto.class.name
-					when 'Elemento'
-						objeto.titulo
-					end
+					objeto_title(objeto)
 				else
-					objeto.send(objeto.class.name.downcase)
+					objeto.send(objeto.class.name.tableize.singularize)
 				end
 			else
-				objeto.send(objeto.class.name.downcase)
+				objeto.send(objeto.class.name.tableize.singularize)
 			end
 		else
-			objeto.send(objeto.class.name.downcase)
-		end
-	end
-
-	def show_links(objeto)
-		case objeto.class.name
-		when 'Elemento'
-			[
-				['Editar',     [:edit, objeto], objeto.estado == 'ingreso'],
-				['Papelera',   "/elementos/#{objeto.id}/estado?estado=papelera",     (['ingreso', 'duplicado'].include?(objeto.estado) and objeto.listas.any?) ],
-				['Eliminar',   "/elementos/#{objeto.id}/estado?estado=eliminado",    (['ingreso', 'papelera'].include?(objeto.estado) and objeto.listas.empty?)],
-				['Publicar',   "/elementos/#{objeto.id}/estado?estado=publicada",    (['ingreso'].include?(objeto.estado) and objeto.titulo.present? and objeto.autor.present? and objeto.letra.present?)],	
-				['Ingreso',    "/elementos/#{objeto.id}/estado?estado=ingreso",      ['publicado', 'papelera'].include?(objeto.estado) ],
-				['Múltiple',   "/elementos/estado?elemento_id=#{objeto.id}&estado=multiple",     objeto.estado == 'duplicado'],
-				['Corrección', "/elementos/#{objeto.id}/estado?estado=correccion",   (objeto.estado == 'publicada' and usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id']) ]
-			]
+			objeto.send(objeto.class.name.tableize.singularize)
 		end
 	end
 
@@ -373,22 +362,25 @@ module ApplicationHelper
 
 	## ------------------------------------------------------- GENERAL
 
+	def navbar_color
+		Rails.configuration.colors['navbar'][:color]
+	end
+
+	def c_color(controller)
+		if Rails.configuration.colors['help'][:controllers].include?(controller)
+			Rails.configuration.colors['help'][:color]
+		elsif Rails.configuration.colors['data'][:controllers].include?(controller)
+			Rails.configuration.colors['data'][:color]
+		else
+			Rails.configuration.colors['app'][:color]
+		end
+	end
+
 	# Manejode options para selectors múltiples
 	def get_html_opts(options, label, value)
 		opts = options.clone
 		opts[label] = value
 		opts
-	end
-
-	# Corrige palabras
-	# "_title.html.erb"
-	def corrige(w)
-		case w
-		when 'Controlador'
-			'label'
-		else
-			w.capitalize
-		end
 	end
 
 	## ------------------------------------------------------- LIST

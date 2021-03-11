@@ -1,11 +1,13 @@
 class VistasController < ApplicationController
   before_action :authenticate_usuario!, only: [:escritorio]
-  before_action :inicia_session
+  before_action :inicia_sesion
+  before_action :carga_temas_ayuda
   before_action :set_vista, only: %i[ show edit update destroy ]
 
   # GET /vistas or /vistas.json
   def index
-    @coleccion = Elemento.where(estado: 'publicada').page(params[:page])
+    @coleccion = {}
+    @coleccion['elementos'] = Elemento.where(estado: 'publicada').page(params[:page])
   end
 
   # GET /vistas/1 or /vistas/1.json

@@ -1,6 +1,7 @@
 class ElementosController < ApplicationController
   before_action :authenticate_usuario!, except: :show
-  before_action :inicia_session
+  before_action :inicia_sesion
+  before_action :carga_temas_ayuda
   before_action :set_elemento, only: %i[ show edit update destroy estado ]
 
   # GET /elementos or /elementos.json
@@ -12,7 +13,9 @@ class ElementosController < ApplicationController
   def show
     if usuario_signed_in?
       @activo = Perfil.find(session[:perfil_activo]['id'])
-      @coleccion = @objeto.listas
+
+      @coleccion = {}
+      @coleccion['listas'] = @objeto.listas
 
       @listas_seleccion = Lista.find(@activo.listas.ids - @objeto.listas.ids)
     end
