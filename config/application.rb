@@ -66,6 +66,8 @@ module Chinga
 
     config.home = {
         favicon: true,
+        home: 'http://www.chinga.cl',
+        nombre: 'viv',
         imagen_portada: true,
         titulo_size: '1',
         titulo_color: 'secondary',

@@ -29,6 +29,14 @@ module ApplicationHelper
 		Rails.configuration.home[:favicon]
 	end
 
+	def nombre
+		Rails.configuration.home[:nombre]
+	end
+
+	def home
+		Rails.configuration.home[:home]
+	end
+
 	## ------------------------------------------------------- MENU
 
 	# Obtiene los controladores que no despliegan menu
