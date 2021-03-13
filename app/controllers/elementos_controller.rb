@@ -34,6 +34,10 @@ class ElementosController < ApplicationController
 
   # GET /elementos/1/edit
   def edit
+    @genero_autores = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
+    @forma_musicales = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
+    @estructura_poeticas = EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}
+    @soportes = Soporte.all.order(:soporte).map {|sop| sop.soporte}
   end
 
   # POST /elementos or /elementos.json
