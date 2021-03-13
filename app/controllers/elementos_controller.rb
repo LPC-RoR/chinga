@@ -139,6 +139,6 @@ class ElementosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def elemento_params
-      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache)
+      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache, :remove_ilustracion)
     end
 end
