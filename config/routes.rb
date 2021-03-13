@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :rutas
+  resources :claves
   resources :forma_musicales
   resources :estructura_poeticas
   resources :parametros

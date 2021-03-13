@@ -1,0 +1,32 @@
+<%= form_with(model: clave, local: true) do |form| %>
+  <% if clave.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(clave.errors.count, "error") %> prohibited this clave from being saved:</h2>
+
+      <ul>
+      <% clave.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :clave %>
+    <%= form.text_field :clave %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sha1 %>
+    <%= form.text_field :sha1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :orden %>
+    <%= form.number_field :orden %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,42 +1,7 @@
 <!-- CARPETAS Y DESPLIEGUE DE CITA -->
 <div class='row'>
 	<div class= 'col-md-4'>
-		<table  class="table table-striped">
-			<tbody>
-
-				<% c.classify.constantize::SHOW_FIELDS.each do |field| %>
-					<% if filtro_conditional_field?(@objeto, field[0]) %>
-						<tr>
-							<% case field[1] %>
-							<% when 'normal' %>
-
-								<% if c.classify.constantize.column_names.include?(field[0]) %>
-									<td><small> <%= field[0] %> </small></td>
-									<td><small> <%=  o[field[0]] %> </small></td>
-								<% else %>
-									<td><small> <%= field[0] %> </small></td>
-									<td><small> <%= f_tabla_field(o, field[0]) %> </small></td>
-								<% end %>
-							<% when 'metodo' %>
-								<td><small> <%= field[0] %> </small></td>
-								<td><small> <%=  o.send(field[0]) %> </small></td>
-							<% when 'diahora' %>
-
-								<% if c.classify.constantize.column_names.include?(field[0]) %>
-									<td><small> <%= field[0] %> </small></td>
-									<td><small> <%=  l(o[field[0]]) %> </small></td>
-								<% else %>
-									<td><small> <%= field[0] %> </small></td>
-									<td><small> <%= l(f_tabla_field(o, field[0])) %> </small></td>
-								<% end %>
-
-							<% end %>
-						</tr>
-					<% end %>
-				<% end %>
-
-			</tbody>
-		</table>
+  		<%= image_tag(@objeto.ilustracion.quarter.url, class: "mx-auto d-block") if @objeto.ilustracion.present? %></br>
 	</div>
 
 	<div class='col-md-4'>
@@ -45,7 +10,10 @@
 		<% else %>
 			<h5><%= @objeto.titulo %></h5>
 		<% end %>
-		<h6><%= "| #{@objeto.autor} |" %></h6>
+		<small><b><%= "#{@objeto.d_soporte}" %></b></small></br>
+		<small><b><%= "#{@objeto.autor}" %></b></small></br>
+		<small><b><%= "#{@objeto.interprete}" %></b></small></br>
+		</br>
 
 		<% unless @objeto.letra.empty? %>
 			<small><%= sanitize @objeto.d_letra %></small>
@@ -54,5 +22,8 @@
 	</div>
 
 	<div class='col-md-4'>
+		<% @claves.each do |clave| %>
+			<%= (clave.elementos.count == 1 ? clave.clave : (link_to clave.clave, clave)) %></br>
+		<% end %>
 	</div>
 </div>

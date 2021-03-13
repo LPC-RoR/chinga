@@ -1,4 +1,7 @@
 class Elemento < ApplicationRecord
+
+	require 'carrierwave/orm/activerecord'
+
 	# Campos qeu se despliegan en la tabla
 	TABLA_FIELDS = [
 		['titulo',           'show'], 
@@ -24,6 +27,11 @@ class Elemento < ApplicationRecord
 
 	has_many :clasificaciones
 	has_many :listas, through: :clasificaciones
+
+	has_many :rutas
+	has_many :claves, through: :rutas
+
+	mount_uploader :ilustracion, IlustracionUploader
 
 	def d_letra
 	  self.letra.gsub(/\n/, '<br>')

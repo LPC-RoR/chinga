@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_000727) do
+ActiveRecord::Schema.define(version: 2021_03_13_015317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 2021_03_13_000727) do
     t.index ["lista_id"], name: "index_clasificaciones_on_lista_id"
   end
 
+  create_table "claves", force: :cascade do |t|
+    t.string "clave"
+    t.string "sha1"
+    t.integer "orden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_claves_on_orden"
+    t.index ["sha1"], name: "index_claves_on_sha1"
+  end
+
   create_table "creaciones", force: :cascade do |t|
     t.integer "autor_id"
     t.integer "elemento_id"
@@ -59,7 +69,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_000727) do
     t.string "pais"
     t.string "ciudad_autor"
     t.string "interprete"
-    t.string "disco"
     t.string "link"
     t.string "forma_musical"
     t.integer "annio_creacion"
@@ -77,7 +86,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_000727) do
     t.index ["annio_creacion"], name: "index_elementos_on_annio_creacion"
     t.index ["annio_estreno"], name: "index_elementos_on_annio_estreno"
     t.index ["ciudad_autor"], name: "index_elementos_on_ciudad_autor"
-    t.index ["disco"], name: "index_elementos_on_disco"
     t.index ["estado"], name: "index_elementos_on_estado"
     t.index ["estructura_poetica"], name: "index_elementos_on_estructura_poetica"
     t.index ["forma_musical"], name: "index_elementos_on_forma_musical"
@@ -285,6 +293,15 @@ ActiveRecord::Schema.define(version: 2021_03_13_000727) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["administrador_id"], name: "index_ruedas_on_administrador_id"
+  end
+
+  create_table "rutas", force: :cascade do |t|
+    t.integer "clave_id"
+    t.integer "elemento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clave_id"], name: "index_rutas_on_clave_id"
+    t.index ["elemento_id"], name: "index_rutas_on_elemento_id"
   end
 
   create_table "soportes", force: :cascade do |t|

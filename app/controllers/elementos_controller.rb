@@ -4,6 +4,8 @@ class ElementosController < ApplicationController
   before_action :carga_temas_ayuda
   before_action :set_elemento, only: %i[ show edit update destroy estado ]
 
+  include ProcesoElemento
+
   # GET /elementos or /elementos.json
   def index
     @coleccion = Elemento.all
@@ -18,6 +20,8 @@ class ElementosController < ApplicationController
       @coleccion['listas'] = @objeto.listas
 
       @listas_seleccion = Lista.find(@activo.listas.ids - @objeto.listas.ids)
+
+      @claves = @objeto.claves.order(:orden)
     end
   end
 
@@ -26,18 +30,18 @@ class ElementosController < ApplicationController
     @activo = Perfil.find(session[:perfil_activo]['id'])
     @objeto = @activo.contribuciones.new(estado: 'ingreso')
 
-    @genero_autores = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
-    @forma_musicales = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
+    @genero_autores      = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
+    @forma_musicales     = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
     @estructura_poeticas = EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}
-    @soportes = Soporte.all.order(:soporte).map {|sop| sop.soporte}
+    @soportes            = Soporte.all.order(:soporte).map {|sop| sop.soporte}
   end
 
   # GET /elementos/1/edit
   def edit
-    @genero_autores = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
-    @forma_musicales = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
+    @genero_autores      = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
+    @forma_musicales     = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
     @estructura_poeticas = EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}
-    @soportes = Soporte.all.order(:soporte).map {|sop| sop.soporte}
+    @soportes            = Soporte.all.order(:soporte).map {|sop| sop.soporte}
   end
 
   # POST /elementos or /elementos.json
@@ -77,6 +81,7 @@ class ElementosController < ApplicationController
     if params[:estado] == 'eliminado'
       @objeto.delete
     elsif ['correccion', 'ingreso'].include?(params[:estado])
+        desprocesa_elemento(@objeto) if params[:estado] == 'correccion'
         @objeto.estado = 'ingreso'
 #        @objeto.unicidad = 'unico'
         @objeto.save
@@ -90,6 +95,14 @@ class ElementosController < ApplicationController
           @objeto.listas.delete(lst)
         end
       end
+      @objeto.estado = params[:estado]
+      @objeto.save
+    elsif params[:estado] == 'publicada'
+      procesa_elemento(@objeto)
+      @objeto.estado = params[:estado]
+      @objeto.save
+    elsif params[:estado] == 'ingreso'
+      procesa_elemento(@objeto)
       @objeto.estado = params[:estado]
       @objeto.save
     else
@@ -126,6 +139,6 @@ class ElementosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def elemento_params
-      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :disco, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre)
+      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache)
     end
 end
