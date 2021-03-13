@@ -7,10 +7,6 @@ Rails.application.routes.draw do
   resources :genero_autores
   resources :observaciones
   resources :mejoras
-  resources :registros
-  resources :interpretes
-  resources :creaciones
-  resources :autores
   resources :soportes
   resources :participantes
   resources :ruedas
