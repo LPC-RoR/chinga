@@ -16,8 +16,7 @@ class ListasController < ApplicationController
 
   # GET /listas/new
   def new
-    @activo = Perfil.find(session[:perfil_activo]['id'])
-    @objeto = @activo.listas.new
+    @objeto = Lista.new(perfil_id: params[:perfil_id])
   end
 
   def nuevo
@@ -98,7 +97,7 @@ class ListasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = listas_path
+      @redireccion = '/perfiles/activo'
     end
 
     # Only allow a list of trusted parameters through.

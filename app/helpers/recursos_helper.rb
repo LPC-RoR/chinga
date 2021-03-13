@@ -20,11 +20,19 @@ module RecursosHelper
 		when 'Elemento'
 			objeto.estado == 'ingreso'
 		when 'Lista'
-			controller_name == 'listas'
+			controller_name == 'perfiles'
 		when 'Texto'
 			false
 		when 'Clasificacion'
 			false
+		when 'GeneroAutor'
+			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
+		when 'FormaMusical'
+			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
+		when 'EstructuraPoetica'
+			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
+		when 'Soporte'
+			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
 		end
 	end
 
@@ -58,6 +66,8 @@ module RecursosHelper
 		case objeto.class.name
 		when 'Elemento'
 			objeto.titulo
+		when 'Perfil'
+			"| #{objeto.usuario.present? ? objeto.usuario : 'ingresar usuario'} | #{objeto.email} |"
 		end
 	end
 

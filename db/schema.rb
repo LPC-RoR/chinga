@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_185246) do
+ActiveRecord::Schema.define(version: 2021_03_13_000727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.index ["usuario_id"], name: "index_administradores_on_usuario_id"
   end
 
+  create_table "autores", force: :cascade do |t|
+    t.string "autor"
+    t.integer "perfil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["perfil_id"], name: "index_autores_on_perfil_id"
+  end
+
   create_table "clasificaciones", force: :cascade do |t|
     t.integer "elemento_id"
     t.datetime "created_at", null: false
@@ -34,11 +42,20 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.index ["lista_id"], name: "index_clasificaciones_on_lista_id"
   end
 
+  create_table "creaciones", force: :cascade do |t|
+    t.integer "autor_id"
+    t.integer "elemento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["autor_id"], name: "index_creaciones_on_autor_id"
+    t.index ["elemento_id"], name: "index_creaciones_on_elemento_id"
+  end
+
   create_table "elementos", force: :cascade do |t|
     t.string "titulo"
     t.text "letra"
     t.string "autor"
-    t.string "genero"
+    t.string "genero_autor"
     t.string "pais"
     t.string "ciudad_autor"
     t.string "interprete"
@@ -52,16 +69,23 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "estado"
+    t.string "soporte"
+    t.string "soporte_nombre"
+    t.string "ilustracion"
+    t.string "ilustracion_cache"
+    t.string "estructura_poetica"
     t.index ["annio_creacion"], name: "index_elementos_on_annio_creacion"
     t.index ["annio_estreno"], name: "index_elementos_on_annio_estreno"
     t.index ["ciudad_autor"], name: "index_elementos_on_ciudad_autor"
     t.index ["disco"], name: "index_elementos_on_disco"
     t.index ["estado"], name: "index_elementos_on_estado"
+    t.index ["estructura_poetica"], name: "index_elementos_on_estructura_poetica"
     t.index ["forma_musical"], name: "index_elementos_on_forma_musical"
-    t.index ["genero"], name: "index_elementos_on_genero"
+    t.index ["genero_autor"], name: "index_elementos_on_genero_autor"
     t.index ["interprete"], name: "index_elementos_on_interprete"
     t.index ["pais"], name: "index_elementos_on_pais"
     t.index ["perfil_id"], name: "index_elementos_on_perfil_id"
+    t.index ["soporte"], name: "index_elementos_on_soporte"
     t.index ["titulo"], name: "index_elementos_on_titulo"
   end
 
@@ -76,6 +100,14 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.index ["sha1"], name: "index_equipos_on_sha1"
   end
 
+  create_table "estructura_poeticas", force: :cascade do |t|
+    t.string "estructura_poetica"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_estructura_poeticas_on_owner_id"
+  end
+
   create_table "evaluaciones", force: :cascade do |t|
     t.string "aspecto"
     t.string "evaluacion"
@@ -85,6 +117,30 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.datetime "updated_at", null: false
     t.index ["elemento_id"], name: "index_evaluaciones_on_elemento_id"
     t.index ["perfil_id"], name: "index_evaluaciones_on_perfil_id"
+  end
+
+  create_table "forma_musicales", force: :cascade do |t|
+    t.string "forma_musical"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_forma_musicales_on_owner_id"
+  end
+
+  create_table "formas", force: :cascade do |t|
+    t.string "forma"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_formas_on_owner_id"
+  end
+
+  create_table "genero_autores", force: :cascade do |t|
+    t.string "genero_autor"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_genero_autores_on_owner_id"
   end
 
   create_table "herencias", force: :cascade do |t|
@@ -103,6 +159,14 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.integer "perfil_id"
     t.index ["equipo_id"], name: "index_integrantes_on_equipo_id"
     t.index ["perfil_id"], name: "index_integrantes_on_perfil_id"
+  end
+
+  create_table "interpretes", force: :cascade do |t|
+    t.string "interprete"
+    t.integer "perfil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["perfil_id"], name: "index_interpretes_on_perfil_id"
   end
 
   create_table "lineas", force: :cascade do |t|
@@ -131,6 +195,17 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.index ["perfil_id"], name: "index_listas_on_perfil_id"
   end
 
+  create_table "mejoras", force: :cascade do |t|
+    t.string "mejora"
+    t.text "detalle"
+    t.integer "elemento_id"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["elemento_id"], name: "index_mejoras_on_elemento_id"
+    t.index ["owner_id"], name: "index_mejoras_on_owner_id"
+  end
+
   create_table "mensajes", force: :cascade do |t|
     t.string "mensaje"
     t.string "tipo"
@@ -146,6 +221,26 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.index ["fecha_envio"], name: "index_mensajes_on_fecha_envio"
     t.index ["perfil_id"], name: "index_mensajes_on_perfil_id"
     t.index ["tipo"], name: "index_mensajes_on_tipo"
+  end
+
+  create_table "observaciones", force: :cascade do |t|
+    t.string "observacion"
+    t.text "detalle"
+    t.integer "elemento_id"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["elemento_id"], name: "index_observaciones_on_elemento_id"
+    t.index ["owner_id"], name: "index_observaciones_on_owner_id"
+  end
+
+  create_table "participantes", force: :cascade do |t|
+    t.integer "perfil_id"
+    t.integer "rueda_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["perfil_id"], name: "index_participantes_on_perfil_id"
+    t.index ["rueda_id"], name: "index_participantes_on_rueda_id"
   end
 
   create_table "pasos", force: :cascade do |t|
@@ -165,9 +260,40 @@ ActiveRecord::Schema.define(version: 2021_03_10_185246) do
     t.integer "administrador_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nombre"
+    t.string "usuario"
     t.index ["administrador_id"], name: "index_perfiles_on_administrador_id"
     t.index ["email"], name: "index_perfiles_on_email"
+    t.index ["usuario"], name: "index_perfiles_on_usuario"
     t.index ["usuario_id"], name: "index_perfiles_on_usuario_id"
+  end
+
+  create_table "registros", force: :cascade do |t|
+    t.integer "interprete_id"
+    t.integer "elemento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["elemento_id"], name: "index_registros_on_elemento_id"
+    t.index ["interprete_id"], name: "index_registros_on_interprete_id"
+  end
+
+  create_table "ruedas", force: :cascade do |t|
+    t.integer "administrador_id"
+    t.string "rueda"
+    t.string "ubicacion"
+    t.text "invitacion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["administrador_id"], name: "index_ruedas_on_administrador_id"
+  end
+
+  create_table "soportes", force: :cascade do |t|
+    t.string "soporte"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "owner_id"
+    t.index ["owner_id"], name: "index_soportes_on_owner_id"
+    t.index ["soporte"], name: "index_soportes_on_soporte"
   end
 
   create_table "tema_ayudas", force: :cascade do |t|

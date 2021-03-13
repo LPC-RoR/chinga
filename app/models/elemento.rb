@@ -1,9 +1,10 @@
 class Elemento < ApplicationRecord
 	# Campos qeu se despliegan en la tabla
 	TABLA_FIELDS = [
-		['titulo',         'show'], 
-		['autor',        'normal'], 
-		['genero',       'normal']
+		['titulo',           'show'], 
+		['autor',          'normal'], 
+		['d_soporte',      'normal'], 
+		['annio_creacion', 'normal']
 	]
 
 	SHOW_FIELDS = [
@@ -26,6 +27,10 @@ class Elemento < ApplicationRecord
 
 	def d_letra
 	  self.letra.gsub(/\n/, '<br>')
+	end
+
+	def d_soporte
+		"#{self.soporte} | #{self.soporte_nombre}"
 	end
 
 end

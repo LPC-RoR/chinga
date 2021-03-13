@@ -1,0 +1,2 @@
+class Creacion < ApplicationRecord
+end

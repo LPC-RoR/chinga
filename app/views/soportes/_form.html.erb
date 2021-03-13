@@ -1,0 +1,32 @@
+<%= form_with(model: soporte, local: true) do |form| %>
+  <% if soporte.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(soporte.errors.count, "error") %> prohibited this soporte from being saved:</h2>
+
+      <ul>
+      <% soporte.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :soporte %>
+    <%= form.text_field :soporte %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :anio %>
+    <%= form.number_field :anio %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

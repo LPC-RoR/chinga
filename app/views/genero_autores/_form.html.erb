@@ -1,0 +1,27 @@
+<%= form_with(model: genero_autor, local: true) do |form| %>
+  <% if genero_autor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(genero_autor.errors.count, "error") %> prohibited this genero_autor from being saved:</h2>
+
+      <ul>
+      <% genero_autor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :genero_autor %>
+    <%= form.text_field :genero_autor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

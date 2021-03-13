@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Forma Musicales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Forma musical</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forma_musicales.each do |forma_musical| %>
+      <tr>
+        <td><%= forma_musical.forma_musical %></td>
+        <td><%= forma_musical.owner_id %></td>
+        <td><%= link_to 'Show', forma_musical %></td>
+        <td><%= link_to 'Edit', edit_forma_musical_path(forma_musical) %></td>
+        <td><%= link_to 'Destroy', forma_musical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Forma Musical', new_forma_musical_path %>

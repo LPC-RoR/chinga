@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  soporte: MyString
+  tipo: MyString
+  anio: 1
+
+two:
+  soporte: MyString
+  tipo: MyString
+  anio: 1

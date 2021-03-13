@@ -1,7 +1,7 @@
 class Equipo < ApplicationRecord
 	TABLA_FIELDS = [
-		['equipo', 'show'], 
-		['sha1', 'normal']
+		['equipo', 'show']
+#		['sha1', 'normal']
 	]
 
 	SHOW_FIELDS = [

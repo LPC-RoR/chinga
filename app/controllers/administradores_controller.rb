@@ -6,7 +6,8 @@ class AdministradoresController < ApplicationController
 
   # GET /administradores or /administradores.json
   def index
-    @coleccion = Administrador.all
+    @coleccion = {}
+    @coleccion['administradores'] = Administrador.all
   end
 
   # GET /administradores/1 or /administradores/1.json

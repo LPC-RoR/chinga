@@ -1,0 +1,22 @@
+<div class='row'>
+  <div class='col-md-3'>
+    <%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Genero Autores', size: '5'} %>
+    <%= render partial: '0p/tabla/solo_tabla', locals: {c: 'genero_autores', a: 'index'} %>
+    <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'genero_autores'} %>
+  </div>
+  <div class='col-md-3'>
+    <%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Formas Musicales', size: '5'} %>
+    <%= render partial: '0p/tabla/solo_tabla', locals: {c: 'forma_musicales', a: 'index'} %>
+    <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'forma_musicales'} %>
+  </div>
+  <div class='col-md-3'>
+    <%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Estructuras Poéticas', size: '5'} %>
+    <%= render partial: '0p/tabla/solo_tabla', locals: {c: 'estructura_poeticas', a: 'index'} %>
+    <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'estructura_poeticas'} %>
+  </div>
+  <div class='col-md-3'>
+    <%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Soportes', size: '5'} %>
+    <%= render partial: '0p/tabla/solo_tabla', locals: {c: 'soportes', a: 'index'} %>
+    <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'soportes'} %>
+  </div>
+</div>

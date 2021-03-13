@@ -67,7 +67,7 @@ module Chinga
     config.home = {
         favicon: true,
         home: 'http://www.chinga.cl',
-        nombre: 'viv',
+        nombre: 'vi&v',
         imagen_portada: true,
         titulo_size: '1',
         titulo_color: 'secondary',
@@ -91,11 +91,13 @@ module Chinga
     # se usa directamente en 0p/navbar/_navbar.html.erb
 
     config.menu = [
-        ["Coleccion",      "/vistas",           'anonimo'],
+        ['Perfil',         "/perfiles/activo",  'usuario'],
+        ["Colección",      "/vistas",           'anonimo'],
         ["Contribuciones", "/contribuciones",   'usuario'],
-        ["Equipos",        "/equipos",          'usuario'],
-        ["Listas",         "/listas",           'usuario'],
-        ["Administradores","/administradores",    'admin'],
+#        ["Equipos",        "/equipos",         'usuario'],
+#        ["Listas",         "/listas",          'usuario'],
+        ['Parámetros',      '/parametros',     'usuario'],    
+        ["Administradores", "/administradores",   'admin'],
         ["Temas Ayuda",     "/tema_ayudas",       'admin'] 
     ]
 
@@ -146,7 +148,7 @@ module Chinga
                 paginas: ['*'],
                 nuevo:   ['self', 'contribuciones']
             },
-            tabs: ['ingreso', 'papelera']
+            tabs: ['ingreso', 'publicada', 'papelera']
         },
 #        'carpetas'        => {
 #            elementos: {
@@ -155,7 +157,8 @@ module Chinga
 #        },
         'equipos'     => {
             elementos: {
-                tabs:    ['self']
+                tabs:    ['perfiles'],
+                nuevo: ['perfiles']
             },
             tabs: ['Administrados', 'Participaciones'],
             new_type: {
@@ -167,7 +170,8 @@ module Chinga
     }
 
     config.alias_controllers = {
-        'vistas' => 'elementos'
+        'vistas'         => 'elementos',
+        'contribuciones' => 'elementos'
     }
 
     config.sortable_tables = []
@@ -189,26 +193,23 @@ module Chinga
                 ['Desclasificar', '/listas/', '/desclasificar', true]
             ]
         },
-        'Carga'         => {
-            conditions: ['x', 'crud'],
-            x_btns: [   
-                ['Proceso', '/cargas/', '/procesa_carga', false]
-            ]
-        },
-        'Area'         => {
-            conditions: ['crud']
-        },
         'Equipo'       => {
             x_btns: [
                 ['Eliminar', '/equipos/', '/elimina_equipo', true]
             ]
         },
-        'Instancia'    => {
-            conditions: ['x', 'crud'],
-            x_btns: [
-                ['Eliminar', '/instancias/', '/elimina_instancia', true]
-            ]
-        }
+        'GeneroAutor' => {
+            conditions: ['crud']
+        },
+        'FormaMusical' => {
+            conditions: ['crud']
+        },
+        'EstructuraPoeticag' => {
+            conditions: ['crud']
+        },
+        'Soporte' => {
+            conditions: ['crud']
+        },
     }
 
     ## ------------------------------------------------- FORM
@@ -250,6 +251,9 @@ module Chinga
         },
         'Equipo'     => {
             elementos: [:detalle, :inline_form]
+        },
+        'Perfil' => {
+            elementos: ['show_title']
         }
     }
 

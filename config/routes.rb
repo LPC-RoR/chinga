@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  resources :forma_musicales
+  resources :estructura_poeticas
+  resources :parametros
+  resources :genero_autores
+  resources :observaciones
+  resources :mejoras
+  resources :registros
+  resources :interpretes
+  resources :creaciones
+  resources :autores
+  resources :soportes
+  resources :participantes
+  resources :ruedas
   resources :mensajes
   resources :administradores
   resources :clasificaciones
@@ -19,7 +32,10 @@ Rails.application.routes.draw do
     match :agrega_elemento, via: :post, on: :collection
     match :desclasificar, via: :get, on: :member
   end
-  resources :perfiles
+  resources :perfiles do
+    resources :listas
+    match :activo, via: :get, on: :collection
+  end
   resources :pasos
   resources :recursos do
     collection do

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ruedas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Administrador</th>
+      <th>Rueda</th>
+      <th>Ubicacion</th>
+      <th>Invitacion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ruedas.each do |rueda| %>
+      <tr>
+        <td><%= rueda.administrador_id %></td>
+        <td><%= rueda.rueda %></td>
+        <td><%= rueda.ubicacion %></td>
+        <td><%= rueda.invitacion %></td>
+        <td><%= link_to 'Show', rueda %></td>
+        <td><%= link_to 'Edit', edit_rueda_path(rueda) %></td>
+        <td><%= link_to 'Destroy', rueda, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rueda', new_rueda_path %>

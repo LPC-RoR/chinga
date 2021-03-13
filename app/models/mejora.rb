@@ -1,0 +1,2 @@
+class Mejora < ApplicationRecord
+end

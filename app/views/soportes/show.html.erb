@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Soporte:</strong>
+  <%= @soporte.soporte %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @soporte.tipo %>
+</p>
+
+<p>
+  <strong>Anio:</strong>
+  <%= @soporte.anio %>
+</p>
+
+<%= link_to 'Edit', edit_soporte_path(@soporte) %> |
+<%= link_to 'Back', soportes_path %>

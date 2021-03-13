@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Administrador:</strong>
+  <%= @rueda.administrador_id %>
+</p>
+
+<p>
+  <strong>Rueda:</strong>
+  <%= @rueda.rueda %>
+</p>
+
+<p>
+  <strong>Ubicacion:</strong>
+  <%= @rueda.ubicacion %>
+</p>
+
+<p>
+  <strong>Invitacion:</strong>
+  <%= @rueda.invitacion %>
+</p>
+
+<%= link_to 'Edit', edit_rueda_path(@rueda) %> |
+<%= link_to 'Back', ruedas_path %>

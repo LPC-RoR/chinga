@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  forma_musical: MyString
+  owner_id: 1
+
+two:
+  forma_musical: MyString
+  owner_id: 1

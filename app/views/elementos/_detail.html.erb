@@ -10,20 +10,20 @@
 <div class='row'>
 	<div class='col-md-6'>
 
+		<% if filtro_conditional_field?(@objeto, 'interprete') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Interprete' %></small></br>
+					<%= form.text_field(:interprete, class: 'form-control') %>
+				</div>
+			</div>
+		<% end %>
+
 		<% if filtro_conditional_field?(@objeto, 'autor') %>
 			<div class='row'>
 				<div class='col-md-12'>
 					<small><%= form.label 'Autor' %></small></br>
 					<%= form.text_field(:autor, class: 'form-control') %>
-				</div>
-			</div>
-		<% end %>
-
-		<% if filtro_conditional_field?(@objeto, 'genero') %>
-			<div class='row'>
-				<div class='col-md-12'>
-					<small><%= form.label 'Genero' %></small></br>
-					<%= form.text_field(:genero, class: 'form-control') %>
 				</div>
 			</div>
 		<% end %>
@@ -41,11 +41,41 @@
 			</div>
 		<% end %>
 
-		<% if filtro_conditional_field?(@objeto, 'interprete') %>
+		</br>
+		<% if filtro_conditional_field?(@objeto, 'genero_autor') %>
 			<div class='row'>
 				<div class='col-md-12'>
-					<small><%= form.label 'Interprete' %></small></br>
-					<%= form.text_field(:interprete, class: 'form-control') %>
+					<%= form.select :genero_autor, @genero_autores, prompt: '+ Genero Autor' %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'forma_musical') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<%= form.select :forma_musical, @forma_musicales, prompt: '+ Forma Musical' %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'estructura_poetica') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<%= form.select :estructura_poetica, @estructura_poeticas, prompt: '+ Estructura Poética' %>
+				</div>
+			</div>
+		<% end %>
+
+		<% if filtro_conditional_field?(@objeto, 'soporte') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<%= form.select :soporte, @soportes, prompt: '+ Soporte' %>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Titulo Soporte' %></small></br>
+					<%= form.text_field(:soporte_nombre, class: 'form-control') %>
 				</div>
 			</div>
 		<% end %>

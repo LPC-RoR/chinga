@@ -31,6 +31,10 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.plural /(l)$/i, '\1es'
     inflect.singular /(l)es/i, '\1'
 
+    # palabras terminadas en 'cion' y 'sion'
+    inflect.plural /(d)$/i, '\1es'
+    inflect.singular /(d)es/i, '\1'
+
     inflect.plural 'imagen', 'imagenes'
     inflect.plural 'Imagen', 'Imagenes'
     inflect.singular 'imagenes', 'imagen'

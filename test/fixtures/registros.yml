@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  interprete_id: 1
+  elemento_id: 1
+
+two:
+  interprete_id: 1
+  elemento_id: 1

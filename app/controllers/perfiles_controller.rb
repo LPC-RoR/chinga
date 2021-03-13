@@ -9,6 +9,28 @@ class PerfilesController < ApplicationController
     @coleccion = Perfil.all
   end
 
+  def activo
+    @objeto = Perfil.find(session[:perfil_activo]['id'])
+
+    @coleccion = {}
+
+    # ******************************** LISTAS ********************************
+    @coleccion['listas'] = @objeto.listas.order(:lista)
+#    @coleccion['rondas'] = @objeto.rondas
+
+    # ******************************** EQUIPOS ********************************
+    if params[:html_options].blank?
+      @tab = 'Administrados'
+    else
+      @tab = params[:html_options][:tab].blank? ? 'Administrados' : params[:html_options][:tab]
+    end
+
+    @coleccion['equipos'] = (@tab == 'Administrados') ? @objeto.equipos : @objeto.participaciones
+
+    @options = {'tab' => @tab}
+
+  end
+
   # GET /perfiles/1 or /perfiles/1.json
   def show
   end

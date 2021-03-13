@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mejora:</strong>
+  <%= @mejora.mejora %>
+</p>
+
+<p>
+  <strong>Detalle:</strong>
+  <%= @mejora.detalle %>
+</p>
+
+<p>
+  <strong>Elemento:</strong>
+  <%= @mejora.elemento_id %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @mejora.owner_id %>
+</p>
+
+<%= link_to 'Edit', edit_mejora_path(@mejora) %> |
+<%= link_to 'Back', mejoras_path %>

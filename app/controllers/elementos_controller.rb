@@ -25,6 +25,11 @@ class ElementosController < ApplicationController
   def new
     @activo = Perfil.find(session[:perfil_activo]['id'])
     @objeto = @activo.contribuciones.new(estado: 'ingreso')
+
+    @genero_autores = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
+    @forma_musicales = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
+    @estructura_poeticas = EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}
+    @soportes = Soporte.all.order(:soporte).map {|sop| sop.soporte}
   end
 
   # GET /elementos/1/edit
@@ -117,6 +122,6 @@ class ElementosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def elemento_params
-      params.require(:elemento).permit(:titulo, :letra, :autor, :genero, :pais, :ciudad_autor, :interprete, :disco, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id)
+      params.require(:elemento).permit(:titulo, :letra, :autor, :genero, :pais, :ciudad_autor, :interprete, :disco, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre)
     end
 end

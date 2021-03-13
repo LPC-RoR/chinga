@@ -58,7 +58,7 @@ class EquiposController < ApplicationController
       end
 
     end
-    redirect_to "/equipos?tab=#{params[:tab]}"
+    redirect_to "/perfiles/activo?tab=#{params[:tab]}"
   end
 
   def nueva_lista_equipo
@@ -83,7 +83,8 @@ class EquiposController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Equipo was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Equipo was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -96,7 +97,8 @@ class EquiposController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(equipo_params)
-        format.html { redirect_to @objeto, notice: "Equipo was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Equipo was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -107,9 +109,10 @@ class EquiposController < ApplicationController
 
   # DELETE /equipos/1 or /equipos/1.json
   def destroy
+    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to equipos_url, notice: "Equipo was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Equipo was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -118,6 +121,10 @@ class EquiposController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_equipo
       @objeto = Equipo.find(params[:id])
+    end
+
+    def set_redireccion
+      @redireccion = '/perfiles/activo'
     end
 
     # Only allow a list of trusted parameters through.

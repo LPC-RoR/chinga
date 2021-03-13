@@ -14,7 +14,9 @@ class ContribucionesController < ApplicationController
 
     @activo = Perfil.find(session[:perfil_activo]['id'])
     @table_controller = 'elementos'
-    @coleccion = @activo.contribuciones.where(estado: @tab).page(params[:page])
+
+    @coleccion = {}
+    @coleccion['elementos'] = @activo.contribuciones.where(estado: @tab).page(params[:page])
     @options = { 'tab' => @tab }
   end
 
