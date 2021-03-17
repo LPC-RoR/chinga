@@ -175,7 +175,8 @@ module Chinga
     ## ------------------------------------------------- FORM
 
     config.detail_types_controller = {
-        dependencias: ['mejoras', 'mensajes', 'observaciones', 'tema_ayudas', 'tutoriales', 'pasos'],
+        help: ['mejoras', 'mensajes', 'observaciones', 'tema_ayudas', 'tutoriales', 'pasos'],
+        data: ['especificaciones', 'tablas'],
         modelo: ['elementos']
     }
 
