@@ -118,7 +118,9 @@ module Chinga
                 tabs:    ['perfiles'],
                 nuevo: ['perfiles']
             },
-            tabs: ['Administrados', 'Participaciones'],
+            tabs: {
+                'perfiles' => ['Administrados', 'Participaciones']
+            },
             new_type: {
                 #'controller' => 'tipo_new'
                 # '*' en todo controller_name
