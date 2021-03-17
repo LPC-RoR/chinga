@@ -1,6 +1,6 @@
 require_relative 'boot'
 
-require 'rails/all'
+require 'rails/all' 
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,6 +15,7 @@ module Chinga
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
     # +++ HCH activa locala :es
     config.i18n.default_locale = :es
 
@@ -43,91 +44,46 @@ module Chinga
         adjuntos:    false
     }
 
-    ## ------------------------------------------------- COLORES ESTRUCTURA
-    # En 'app' los controladores son los que NO son de los otros tipos
-    config.colors = {
+    ## ------------------------------------------------- APARIENCIA APLICACION
+
+    config.look_app = {
+        'aplicacion' => {
+            favicon: true,
+            banner: false,
+            nombre: 'vi&v',
+            home_link: 'http://www.chinga.cl',
+            imagen_portada: true,
+            titulo_size: '1',
+            titulo_color: 'secondary',
+            detalle_size: '6',
+            detalle_color: 'secondary',
+            foot_size: 'quarter'
+        },
         'navbar' => {
-            color: 'dark'
+            color: 'dark',
+            logo: true
         },
-        'app' => {
-            color: 'dark'
-        },
-        'help' => {
-            color: 'secondary',
-            controllers: ['tema_ayudas', 'tutoriales', 'pasos', 'mensajes']
-        },
-        'data' => {
-            color: 'success',
-            controllers: ['etapas', 'tablas', 'lineas', 'especificaciones', 'observaciones', 'archivos', 'imagenes']
+        'look_elementos' => {
+            'app' => {
+                color: 'dark'
+            },
+            'help' => {
+                color: 'secondary',
+                controllers: ['tema_ayudas', 'tutoriales', 'pasos', 'mensajes']
+            },
+            'data' => {
+                color: 'success',
+                controllers: ['etapas', 'tablas', 'lineas', 'especificaciones', 'observaciones', 'archivos', 'imagenes']
+            }
         }
-    }
-
-    ## ------------------------------------------------- CONFIGURACION HOME
-
-    config.home = {
-        favicon: true,
-        home: 'http://www.chinga.cl',
-        nombre: 'vi&v',
-        imagen_portada: true,
-        titulo_size: '1',
-        titulo_color: 'secondary',
-        detalle_size: '6',
-        detalle_color: 'secondary',
-        foot_size: 'quarter'
     }
 
     ## ------------------------------------------------- MENU
-    config.menu_con_logo = true
-    config.logo_sobre_el_menu = false
 
-    # controladores que NO despliegan MENU
-    # se usa en nomenu?
-    config.x.menu.exceptions_controllers = ['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']    
-
-    ## Menu principal de la aplicación
-    # [0] : Item del menú
-    # [1] : Link del ítem
-    # [2] : Tipo de ítem {'admin', 'usuario', 'anonimo', 'excluir'}
-    # se usa directamente en 0p/navbar/_navbar.html.erb
-
-    config.menu = [
-        ['Perfil',         "/perfiles/activo",  'usuario'],
-        ["Colección",      "/vistas",           'anonimo'],
-        ["Contribuciones", "/contribuciones",   'usuario'],
-#        ["Equipos",        "/equipos",         'usuario'],
-#        ["Listas",         "/listas",          'usuario'],
-        ['Parámetros',      '/parametros',     'usuario'],    
-        ["Administradores", "/administradores",   'admin'],
-        ["Temas Ayuda",     "/tema_ayudas",       'admin'] 
-    ]
-
-    config.menu_con_contacto = true
-    config.menu_con_ayuda = true
-
-    ## ------------------------------------------------- FRAMES
-    config.frames = {
-        'vistas' => {
-            'escritorio' => {
-                titulo: 'Escritorio',
-                selector: 'Carpetas',
-                action_type: 'tabla'
-            }
-
-        },
-        'revisiones' => {
-            'index' => {
-                titulo: 'Revisión de Citas',
-                selector: 'Áreas',
-                tabs: ['Cargas', 'Contribuciones', 'Formatos', 'Duplicados', 'Papelera'],
-                action_type: 'tabla'
-            }
-        },
-        'contribuciones' => {
-            'index' => {
-                titulo: 'Contribución de Citas',
-                action_type: 'tabla'
-            }
-        }
+    config.menu = {
+        nomenu_controllers: ['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks'],
+        add_contacto: true,
+        add_ayuda: true
     }
 
     ## ------------------------------------------------- TABLA
@@ -148,7 +104,9 @@ module Chinga
                 paginas: ['*'],
                 nuevo:   ['self', 'contribuciones']
             },
-            tabs: ['ingreso', 'publicada', 'papelera']
+            tabs: {
+                'contribuciones' => ['ingreso', 'publicada', 'papelera']
+            }
         },
 #        'carpetas'        => {
 #            elementos: {
@@ -174,7 +132,7 @@ module Chinga
         'contribuciones' => 'elementos'
     }
 
-    config.sortable_tables = []
+    config.sortable_tables = {}
 
     ## ------------------------------------------------- TABLA | BTNS
 

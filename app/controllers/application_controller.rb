@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+	include IniciaAplicacion
+
 	## TEMAS AYUDA
 	def carga_temas_ayuda
 		@temas_ayuda  = TemaAyuda.where(tipo: 'tema').order(:orden)
@@ -28,9 +30,11 @@ class ApplicationController < ActionController::Base
 			@administrador = Administrador.find_by(email: @perfil.email)
 			# ACTUALIZO ADMINISTRADOR DEL PERFIL SI ES NECESARIO
 			if @administrador.present? and @perfil.administrador.blank?
-			@perfil.administrador = @administrador
-			@perfil.save
+				@perfil.administrador = @administrador
+				@perfil.save
 			end
+
+			inicia_app
 
 			session[:perfil_base]      = @perfil
 			session[:perfil_activo]    = @perfil

@@ -1,4 +1,29 @@
 module RecursosHelper
+	## ------------------------------------------------------- MENU
+
+	def menu
+	    ## Menu principal de la aplicación
+	    # [0] : Item del menú
+	    # [1] : Link del ítem
+	    # [2] : Tipo de ítem {'admin', 'usuario', 'anonimo', 'excluir'}
+	    # se usa directamente en 0p/navbar/_navbar.html.erb
+	    [
+	        ['Perfil',         "/perfiles/activo",  'usuario'],
+	        ["Colección",      "/vistas",           'anonimo'],
+	        ["Contribuciones", "/contribuciones",   'usuario'],
+	#        ["Equipos",        "/equipos",         'usuario'],
+	#        ["Listas",         "/listas",          'usuario'],
+	        ['Parámetros',      '/parametros',     'usuario'],    
+	        ["Administradores", "/administradores",   'admin'],
+	        ["Temas Ayuda",     "/tema_ayudas",       'admin'] 
+	    ]
+	end
+
+	def display_item_app(item, tipo_item)
+		true
+	end
+
+	## ------------------------------------------------------- TABLA | BTNS
 
 	def tr_row(objeto)
 		case objeto.class.name
