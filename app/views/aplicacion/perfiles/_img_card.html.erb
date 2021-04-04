@@ -1,0 +1,18 @@
+<table class="table table-borderless table-sm  thead-dark">
+	<tbody>
+		<tr>
+			<td>
+				<%= image_tag "#{objeto.imagen? ? objeto.imagen.url : 'avatar_defecto.png'}", class: "rounded mx-auto d-block img-thumbnail" %>
+			</td>
+			<td>
+				<h5 class='text-black'><%= objeto.usuario %></h5>
+				<small><%= objeto.nombre %></small>
+			</td>
+			<td>
+				<p class='text-muted'>
+				<small><small><%= objeto.email%></br><%= objeto.facebook%></br><%= objeto.instagram%></small></small>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>

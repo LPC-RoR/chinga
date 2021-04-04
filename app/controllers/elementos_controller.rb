@@ -2,7 +2,7 @@ class ElementosController < ApplicationController
   before_action :authenticate_usuario!, except: :show
   before_action :inicia_sesion
   before_action :carga_temas_ayuda
-  before_action :set_elemento, only: %i[ show edit update destroy estado ]
+  before_action :set_elemento, only: %i[ show edit update destroy estado asignar desasignar ]
 
   include ProcesoElemento
 
@@ -17,9 +17,11 @@ class ElementosController < ApplicationController
       @activo = Perfil.find(session[:perfil_activo]['id'])
 
       @coleccion = {}
-      @coleccion['listas'] = @objeto.listas
+      @coleccion['listas'] = @objeto.listas.order(:lista)
+      @coleccion['soportes'] = @objeto.soportes
 
       @listas_seleccion = Lista.find(@activo.listas.ids - @objeto.listas.ids)
+      @mis_listas = @activo.listas.order(:lista)
 
       @claves = @objeto.claves.order(:orden)
     end
@@ -72,6 +74,20 @@ class ElementosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def asignar
+    lista = Lista.find(params[:lista_id])
+    @objeto.listas << lista
+
+    redirect_to @objeto
+  end
+
+  def desasignar
+    lista = Lista.find(params[:lista_id])
+    @objeto.listas.delete(lista)
+
+    redirect_to @objeto
   end
 
   def estado

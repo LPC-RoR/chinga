@@ -33,4 +33,24 @@ class Perfil < ApplicationRecord
 		self.presentacion.blank? ? 'No ingresado' : self.presentacion
 	end
 
+	def recursos
+		case self.listas.count
+		when 0 
+			listas = 'sin listas'
+		when 1 
+			listas = '1 lista'
+		else
+			listas = "#{self.listas.count} listas"
+		end
+		case self.contribuciones.count
+		when 0 
+			contribuciones = 'sin contribuciones'
+		when 1 
+			contribuciones = '1 contribución'
+		else
+			contribuciones = "#{self.contribuciones.count} contribuciones"
+		end
+		"#{contribuciones} & #{listas}"
+	end
+
 end

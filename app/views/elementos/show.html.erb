@@ -1,1 +1,34 @@
-<%= render partial: '0p/show/show' %>
+<%= render partial: '0p/general/o_titulo', locals: {o: @objeto, a: action_name, size: '5'} %>
+
+<!-- CARPETAS Y DESPLIEGUE DE CITA -->
+<div class='row'>
+	<div class= 'col-md-4'>
+		<%= render partial: 'aplicacion/perfiles/img_card', locals: {objeto: @objeto.perfil} %>
+		<p class='text-center'><small><%= render partial: 'aplicacion/perfiles/status_perfil', locals: {objeto: @objeto.perfil} %></small></p>
+
+		<%= render partial: 'aplicacion/perfiles/gestion_listas', locals: {objeto: @objeto, coleccion: @mis_listas} %>
+	</div>
+
+	<div class='col-md-4'>
+  		<%= image_tag(@objeto.ilustracion.quarter.url) if @objeto.ilustracion.present? %></br>
+
+		<h4><%= @objeto.titulo %></h4>
+
+		<% unless @objeto.letra.empty? %>
+			<small><%= sanitize @objeto.d_letra %></small>
+		<% end %>
+
+	</div>
+
+	<div class='col-md-4'>
+		<%= render partial: '0p/show/links', locals: {o: @objeto} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
+
+		<% @claves.each do |clave| %>
+			<small><b><%= (clave.elementos.count == 1 ? clave.clave : (link_to clave.clave, clave)) %></b></small></br>
+		<% end %>
+</br>
+		<%= render partial: '0p/general/titulo', locals: {c: 'soportes', a: nil, titulo: 'Soportes', size: '5'} %>
+		<%= render partial: 'soportes/img_index', locals: {coleccion: @coleccion['soportes']} %>
+		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'soportes'} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
+	</div>
+</div>

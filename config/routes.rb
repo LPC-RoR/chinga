@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   resources :contribuciones
   resources :elementos do 
     match :estado, via: :get, on: :member
+    match :asignar, via: :get, on: :member
+    match :desasignar, via: :get, on: :member
   end
   resources :equipos do
     match :nuevo, via: :post, on: :collection
