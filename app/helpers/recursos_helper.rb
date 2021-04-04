@@ -1,4 +1,4 @@
-module RecursosHelper
+	module RecursosHelper
 	## ------------------------------------------------------- MENU
 
 	def menu
@@ -38,12 +38,10 @@ module RecursosHelper
 		end
 	end
 
-	def crud_conditions(objeto)
+	def crud_conditions(objeto, btn)
 		case objeto.class.name
-		when 'Carga'
-			objeto.estado == 'ingreso'
 		when 'Elemento'
-			objeto.estado == 'ingreso'
+			objeto.perfil.id == session[:perfil_activo]['id']
 		when 'Lista'
 			controller_name == 'perfiles'
 		when 'Texto'
@@ -58,19 +56,38 @@ module RecursosHelper
 			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
 		when 'Soporte'
 			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
+		else
+			['TemaAyuda', 'Tutorial', 'Paso'].include?(objeto.class.name) ? (usuario_signed_in? ? session[:es_administrador] : false) : true
 		end
 	end
 
 	def x_conditions(objeto, btn)
 		case objeto.class.name
-		when 'Carga'
-			objeto.estado == 'ingreso'
-		when 'Texto'
-			controller_name == 'publicaciones'
-		when 'Clasificacion'
-			objeto.clasificacion != btn
 		when 'Lista'
 			 ['elementos', 'equipos'].include?(controller_name)
+		end
+	end
+
+	def x_btns(objeto)
+		case objeto.class.name
+		when 'Lista'
+			[['Desclasificar', '/listas/', '/desclasificar', true]]
+        else
+        	[]
+		end		
+	end
+
+	def show_link_condition(objeto)
+		true
+	end
+
+	## ------------------------------------------------------- FORM & SHOW
+
+	def detail_controller_path(controller)
+		if ['elementos', 'soportes'].include?(controller)
+			"#{controller}/detail"
+		else
+			'0p/form/detail'
 		end
 	end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_015317) do
+ActiveRecord::Schema.define(version: 2021_04_04_054622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,6 +270,10 @@ ActiveRecord::Schema.define(version: 2021_03_13_015317) do
     t.datetime "updated_at", null: false
     t.string "nombre"
     t.string "usuario"
+    t.text "presentacion"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "imagen"
     t.index ["administrador_id"], name: "index_perfiles_on_administrador_id"
     t.index ["email"], name: "index_perfiles_on_email"
     t.index ["usuario"], name: "index_perfiles_on_usuario"
@@ -309,8 +313,16 @@ ActiveRecord::Schema.define(version: 2021_03_13_015317) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "owner_id"
+    t.string "link"
+    t.integer "tipo_soporte_id"
+    t.string "imagen"
+    t.integer "perfil_id"
+    t.integer "elemento_id"
+    t.index ["elemento_id"], name: "index_soportes_on_elemento_id"
     t.index ["owner_id"], name: "index_soportes_on_owner_id"
+    t.index ["perfil_id"], name: "index_soportes_on_perfil_id"
     t.index ["soporte"], name: "index_soportes_on_soporte"
+    t.index ["tipo_soporte_id"], name: "index_soportes_on_tipo_soporte_id"
   end
 
   create_table "tema_ayudas", force: :cascade do |t|
@@ -322,6 +334,8 @@ ActiveRecord::Schema.define(version: 2021_03_13_015317) do
     t.string "ilustracion_cache"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activo"
+    t.index ["activo"], name: "index_tema_ayudas_on_activo"
     t.index ["orden"], name: "index_tema_ayudas_on_orden"
     t.index ["tipo"], name: "index_tema_ayudas_on_tipo"
   end
@@ -333,6 +347,14 @@ ActiveRecord::Schema.define(version: 2021_03_13_015317) do
     t.datetime "updated_at", null: false
     t.index ["sha1"], name: "index_textos_on_sha1"
     t.index ["texto"], name: "index_textos_on_texto"
+  end
+
+  create_table "tipo_soportes", force: :cascade do |t|
+    t.string "tipo_soporte"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "owner_id"
+    t.index ["owner_id"], name: "index_tipo_soportes_on_owner_id"
   end
 
   create_table "tutoriales", force: :cascade do |t|

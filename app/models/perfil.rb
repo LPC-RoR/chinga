@@ -1,4 +1,7 @@
 class Perfil < ApplicationRecord
+
+	require 'carrierwave/orm/activerecord'
+
 	belongs_to :administrador, optional: true
 
 	has_many :contribuciones, class_name: 'Elemento'
@@ -13,5 +16,21 @@ class Perfil < ApplicationRecord
 	has_many :ruedas_cantoras, through: :participantes, source: :rueda
 
 	has_many :evaluaciones
+
+	has_many :soportes
+
+	mount_uploader :imagen, ImagenUploader
+
+	def d_nombre
+		self.nombre.blank? ? 'No ingresado' : self.nombre
+	end
+
+	def d_usuario
+		self.usuario.blank? ? 'No ingresado' : self.usuario
+	end
+
+	def d_presentacion
+		self.presentacion.blank? ? 'No ingresado' : self.presentacion
+	end
 
 end

@@ -15,7 +15,11 @@ class SoportesController < ApplicationController
 
   # GET /soportes/new
   def new
-    @objeto = Soporte.new(owner_id: session[:perfil_activo]['id'])
+    case params['class_name']
+    when 'Perfil'
+      padre = Perfil.find(params[:objeto_id])
+    end
+    @objeto = padre.soportes.new(owner_id: session[:perfil_activo]['id'])
   end
 
   # GET /soportes/1/edit
@@ -69,11 +73,11 @@ class SoportesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = parametros_path
+      @redireccion = '/perfiles/activo'
     end
 
     # Only allow a list of trusted parameters through.
     def soporte_params
-      params.require(:soporte).permit(:soporte, :tipo, :anio)
+      params.require(:soporte).permit(:soporte, :owner_id, :link, :tipo_soporte_id, :perfil_id, :elemento_id, :imagen, :remove_imagen, :imagen_cache)
     end
 end

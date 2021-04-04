@@ -1,0 +1,39 @@
+<h4 class='text-info'><%= @objeto.email %></h4>
+<small><%= form.label 'Usuario' %></small></br>
+<div class='form-inline'>
+	<%= form.text_field(:usuario, size: 65, class: 'form-control' ) %>
+</div>
+<small><%= form.label 'Nombre' %></small></br>
+<div class='form-inline'>
+	<%= form.text_field(:nombre, size: 65, class: 'form-control' ) %>
+</div>
+<small><%= form.label 'facebook' %></small></br>
+<div class='form-inline'>
+	<%= form.text_field(:facebook, size: 65, class: 'form-control' ) %>
+</div>
+<small><%= form.label 'instagram' %></small></br>
+<div class='form-inline'>
+	<%= form.text_field(:instagram, size: 65, class: 'form-control' ) %>
+</div>
+<small><%= form.label :presentacion %></small></br>
+<%= form.text_area :presentacion, size: '66x6' %>
+
+<p>
+	<small><%= form.label 'Imagen' %></small></br>
+
+	<% if @objeto.imagen.present? %>
+  		<%= image_tag(@objeto.imagen.url) %></br>
+	<% else %>
+	    <%= form.file_field :imagen %>
+	    <%= form.hidden_field :imagen_cache %>
+	<% end %>
+</p>
+
+<% if @objeto.imagen.present? %>
+	<p>
+	<label>
+	  <%= form.check_box :remove_imagen %>
+	  Remueve Imagen
+	</label>
+	</p>
+<% end %>

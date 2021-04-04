@@ -16,7 +16,11 @@ class ListasController < ApplicationController
 
   # GET /listas/new
   def new
-    @objeto = Lista.new(perfil_id: params[:perfil_id])
+    case params[:class_name]
+    when 'Perfil'
+      padre = Perfil.find(params[:objeto_id])
+    end
+    @objeto = padre.listas.new
   end
 
   def nuevo

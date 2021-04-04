@@ -1,0 +1,33 @@
+<%= form.select :tipo_soporte_id, TipoSoporte.all.order(:tipo_soporte).collect { |ts| [ts.tipo_soporte, ts.id] }, include_blank: false, prompt: "Seleccione Tipo Soporte" %></br>
+
+<small><%= form.label 'Soporte' %></small></br>
+<div class='form-inline'>
+	<%= form.text_field(:soporte, size: 65, class: 'form-control' ) %>
+</div>
+<small><%= form.label 'Link' %></small></br>
+<div class='form-inline'>
+	<%= form.text_field(:link, size: 65, class: 'form-control' ) %>
+</div>
+
+<p>
+	<small><%= form.label 'Imagen' %></small></br>
+
+	<% if @objeto.imagen.present? %>
+  		<%= image_tag(@objeto.imagen.url) %></br>
+	<% else %>
+	    <%= form.file_field :imagen %>
+	    <%= form.hidden_field :imagen_cache %>
+	<% end %>
+</p>
+
+<% if @objeto.imagen.present? %>
+	<p>
+	<label>
+	  <%= form.check_box :remove_imagen %>
+	  Remueve Imagen
+	</label>
+	</p>
+<% end %>
+
+<%= form.hidden_field :perfil_id %>
+<%= form.hidden_field :elemento_id %>

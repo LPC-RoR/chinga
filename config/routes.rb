@@ -1,17 +1,49 @@
 Rails.application.routes.draw do
+
+  # SCOPE APLICACION
+  scope module: 'aplicacion' do
+    resources :administradores
+    resources :perfiles do
+      resources :listas
+      match :activo, via: :get, on: :collection
+    end
+    resources :observaciones
+    resources :recursos do
+      collection do
+        match :inicia_sesion, via: :get
+        match :tablas, via: :get
+        match :manual, via: :get
+      end
+    end
+  end
+
+  # SCOPE HELP
+  scope module: 'help' do
+#    resources :conversaciones
+    resources :mensajes do 
+      match :estado, via: :get, on: :member
+      match :respuesta, via: :post, on: :collection
+    end
+    resources :pasos
+    resources :tema_ayudas do
+      resources :tutoriales
+    end
+    resources :tutoriales do
+      resources :pasos
+    end
+  end
+
+  resources :tipo_soportes
   resources :rutas
   resources :claves
   resources :forma_musicales
   resources :estructura_poeticas
   resources :parametros
   resources :genero_autores
-  resources :observaciones
   resources :mejoras
   resources :soportes
   resources :participantes
   resources :ruedas
-  resources :mensajes
-  resources :administradores
   resources :clasificaciones
   resources :contribuciones
   resources :elementos do 
@@ -30,25 +62,7 @@ Rails.application.routes.draw do
     match :agrega_elemento, via: :post, on: :collection
     match :desclasificar, via: :get, on: :member
   end
-  resources :perfiles do
-    resources :listas
-    match :activo, via: :get, on: :collection
-  end
-  resources :pasos
-  resources :recursos do
-    collection do
-      match :inicia_sesion, via: :get
-      match :tablas, via: :get
-      match :manual, via: :get
-    end
-  end
-  resources :tema_ayudas do
-    resources :tutoriales
-  end
   resources :textos
-  resources :tutoriales do
-    resources :pasos
-  end
   resources :ultimas
   resources :vistas
 
@@ -62,6 +76,6 @@ Rails.application.routes.draw do
       }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'recursos#home'
+  root 'aplicacion/recursos#home'
 
 end

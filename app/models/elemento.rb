@@ -31,6 +31,8 @@ class Elemento < ApplicationRecord
 	has_many :rutas
 	has_many :claves, through: :rutas
 
+	has_many :soportes
+
 	mount_uploader :ilustracion, IlustracionUploader
 
 	def d_letra

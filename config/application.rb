@@ -44,146 +44,114 @@ module Chinga
         adjuntos:    false
     }
 
+    config.look_parameters = {
+        image_sizes: ['entire', 'half', 'quarter', 'thumb'],
+        colors: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'muted', 'white']
+    }
+
     ## ------------------------------------------------- APARIENCIA APLICACION
 
     config.look_app = {
-        'aplicacion' => {
+        aplicacion: {
             favicon: true,
             banner: false,
-            nombre: 'vi&v',
+            nombre_aplicacion: 'vi&v',
             home_link: 'http://www.chinga.cl',
-            imagen_portada: true,
-            titulo_size: '1',
-            titulo_color: 'secondary',
-            detalle_size: '6',
-            detalle_color: 'secondary',
-            foot_size: 'quarter'
+            portada: {
+                active: true,
+                size: nil,
+                clase: 'mx-auto d-block'
+            },
+            init: {
+                size: 'half',
+                clase: 'mx-auto d-block',
+                titulo_size: 1,
+                titulo_color: 'secondary',
+                detalle_size: 6,
+                detalle_color: 'secondary'
+            },
+            foot: {
+                active: true,
+                size: 'quarter',
+                clase: 'mx-auto d-block'
+            },
+            help: {
+                size: 'quarter',
+                clase: 'mx-auto d-block'
+            }
         },
-        'navbar' => {
+        navbar: {
             color: 'dark',
-            logo: true
+            logo: true,
+            nomenu_controllers: ['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks'],
+            item_contacto: true,
+            item_ayuda: true
         },
-        'look_elementos' => {
-            'app' => {
+        look_elementos: {
+            app: {
                 color: 'dark'
             },
-            'help' => {
+            help: {
                 color: 'secondary',
                 controllers: ['tema_ayudas', 'tutoriales', 'pasos', 'mensajes']
             },
-            'data' => {
+            data: {
                 color: 'success',
                 controllers: ['etapas', 'tablas', 'lineas', 'especificaciones', 'observaciones', 'archivos', 'imagenes']
             }
         }
     }
 
-    ## ------------------------------------------------- MENU
-
-    config.menu = {
-        nomenu_controllers: ['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks'],
-        add_contacto: true,
-        add_ayuda: true
-    }
-
     ## ------------------------------------------------- TABLA
 
-    config.x.tables.bt_fields = {
-        'Modelo' => {
-            'field' => ['field_type', 'bt_object']
-        },
-        'Equipo' => {
-            'email' => ['bt_field', 'administrador']
-        }
-    }
-
-    config.x.tables.exceptions = {
-        'elementos' => {
-            elementos: {
-                tabs:  ['self', 'contribuciones'],
-                paginas: ['*'],
-                nuevo:   ['self', 'contribuciones']
+    config.tables = {
+        exceptions: {
+            titulo: {
+#                'areas' => ['rutas'],
             },
+            estados: {},
             tabs: {
+                'elementos' => ['self', 'contribuciones'],
+                'equipos' => ['perfiles']
+            },
+            paginas: {
+                'elementos' => ['*']
+            },
+            nuevo: {
+                'elementos' => ['self', 'contribuciones'],
+                'equipos' => ['perfiles']
+            },
+            inline_form: {
+                'equipos' => ['*']
+            }
+        },
+        tabs: {
+            'elementos' => {
                 'contribuciones' => ['ingreso', 'publicada', 'papelera']
-            }
-        },
-#        'carpetas'        => {
-#            elementos: {
-#                nuevo:    ['equipos']
-#            }
-#        },
-        'equipos'     => {
-            elementos: {
-                tabs:    ['perfiles'],
-                nuevo: ['perfiles']
             },
-            tabs: {
+            'equipos' => {
                 'perfiles' => ['Administrados', 'Participaciones']
-            },
-            new_type: {
-                #'controller' => 'tipo_new'
-                # '*' en todo controller_name
-                '*' => 'inline'
             }
+        },
+        bt_fields: {
+            'Equipo' => {
+                'email' => 'administrador'
+            }
+        },
+        alias: {
+            'vistas' => 'elementos',
+            'contribuciones' => 'elementos'
+        },
+        sortable: {
+#            'publicaciones' => ['author', 'title', 'doc_type', 'year']
         }
-    }
-
-    config.alias_controllers = {
-        'vistas'         => 'elementos',
-        'contribuciones' => 'elementos'
-    }
-
-    config.sortable_tables = {}
-
-    ## ------------------------------------------------- TABLA | BTNS
-
-    ## x_btns
-    # [0] : Nombre del boton
-    # [1] : link base, a esta base se le agrega el instancia_id
-    # [2] : Si es true se agrega "objeto_id=#{@objeto.id}"
-
-    config.x.btns.exceptions = {
-        'Elemento'   => {
-            conditions: ['crud']
-        },
-        'Lista'       => {
-            conditions: ['crud', 'x'],
-            x_btns: [
-                ['Desclasificar', '/listas/', '/desclasificar', true]
-            ]
-        },
-        'Equipo'       => {
-            x_btns: [
-                ['Eliminar', '/equipos/', '/elimina_equipo', true]
-            ]
-        },
-        'GeneroAutor' => {
-            conditions: ['crud']
-        },
-        'FormaMusical' => {
-            conditions: ['crud']
-        },
-        'EstructuraPoeticag' => {
-            conditions: ['crud']
-        },
-        'Soporte' => {
-            conditions: ['crud']
-        },
     }
 
     ## ------------------------------------------------- FORM
 
-    config.detail_types_controller = {
-        help: ['mejoras', 'mensajes', 'observaciones', 'tema_ayudas', 'tutoriales', 'pasos'],
-        data: ['especificaciones', 'tablas'],
-        modelo: ['elementos']
-    }
-
-    # estan condiciones se aplican a FORM y SHOW
-    config.x.form.exceptions = {
-        'Elemento' => {
-            conditional_fields: [
+    config.form = {
+        conditional_fields: {
+            'Elemento' => [
                 'titulo',
                 'letra',
                 'autor',
@@ -197,48 +165,43 @@ module Chinga
                 'annio_creacion',
                 'annio_estreno',
                 'otro_soporte'
-            ]
-        },
-        'Mensaje' => {
-            conditional_fields: ['email']
-        },
+            ],
+            'Mensaje' => ['email']
+        }
+    }
+
+    config.detail_types_controller = {
+        help: ['mejoras', 'mensajes', 'observaciones', 'tema_ayudas', 'tutoriales', 'pasos'],
+        data: ['especificaciones', 'tablas'],
+        modelo: ['elementos']
     }
 
     ## ------------------------------------------------- SHOW
 
-    config.x.show.exceptions = {
-        'Elemento' => {
-            elementos: [:clasifica, :tabla, :inline_form, 'show_title'],
+    config.show = {
+        titulo: [],
+        show_title: ['Elemento', 'Perfil'],
+        partial_links: [],
+        detalle: ['Equipo'],
+        inline_form: ['Elemento', 'Equipo'],
+        tabla: ['Elemento'],
+        links: ['Elemento'],
+        bt_links: {
+#            'Publicacion' => ['revista']
         },
-        'Equipo'     => {
-            elementos: [:detalle, :inline_form]
+        hmt_links: {
+#            'Publicacion' => ['investigadores']
         },
-        'Perfil' => {
-            elementos: ['show_title']
+        status: ['Equipo'],
+        hidden: {
+            'publicaciones'  => ['autores', 'investigadores', 'procesos', 'cargas', 'clasificaciones', 'carpetas', 'evaluaciones', 'asignaciones', 'areas', 'rutas', 'instancias'],
+            'carpetas'       => ['clasificaciones'],
+            'investigadores' => ['autores', 'carpetas'],
+            'equipos'        => ['investigadores', 'instancias', 'integrantes', 'herencias'],
+            'areas'          => ['clasificaciones', 'cargas'],
+            'conceptos'      => ['rel_hijos'],
+            'instancias'     => ['rutas']
         }
-    }
-
-    config.x.show.links = {
-        links:     ['Elemento'],
-        bt_links:  ['Publicacion'],
-        hmt_links: ['Publicacion'],
-        bt_objects: {
-            'Publicacion' => ['revista']
-        },
-        hmt_collections: {
-            'Publicacion' => ['investigadores']
-        }
-    }
-
-
-    config.x.show.hidden = {
-        'publicaciones'  => ['autores', 'investigadores', 'procesos', 'cargas', 'clasificaciones', 'carpetas', 'evaluaciones', 'asignaciones', 'areas', 'rutas', 'instancias'],
-        'carpetas'       => ['clasificaciones'],
-        'investigadores' => ['autores', 'carpetas'],
-        'equipos'        => ['investigadores', 'instancias', 'integrantes', 'herencias'],
-        'areas'          => ['clasificaciones', 'cargas'],
-        'conceptos'      => ['rel_hijos'],
-        'instancias'     => ['rutas']
     }
 
   end
