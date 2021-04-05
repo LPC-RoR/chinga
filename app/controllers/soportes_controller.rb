@@ -75,7 +75,7 @@ class SoportesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = '/perfiles/activo'
+      @redireccion =  @objeto.perfil.present? ? '/perfiles/activo' : @objeto.elemento
     end
 
     # Only allow a list of trusted parameters through.
