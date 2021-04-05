@@ -15,12 +15,7 @@ class SoportesController < ApplicationController
 
   # GET /soportes/new
   def new
-    case params['class_name']
-    when 'Perfil'
-      padre = Perfil.find(params[:objeto_id])
-    when 'Elemento'
-      padre = Elemento.find(params[:objeto_id])
-    end
+    padre = params[:class_name].constantize.find(params[:objeto_id])
     @objeto = padre.soportes.new(owner_id: session[:perfil_activo]['id'])
   end
 

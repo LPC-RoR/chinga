@@ -16,4 +16,6 @@ class Soporte < ApplicationRecord
 	belongs_to :tipo_soporte
 	belongs_to :perfil, optional: true
 	belongs_to :elemento, optional: true
+
+	validates :soporte, :link, presence: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_003536) do
+ActiveRecord::Schema.define(version: 2021_04_05_034411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,17 @@ ActiveRecord::Schema.define(version: 2021_04_05_003536) do
     t.index ["lista_id"], name: "index_herencias_on_lista_id"
   end
 
+  create_table "inclusiones", force: :cascade do |t|
+    t.integer "soporte_id"
+    t.integer "perfil_id"
+    t.integer "elemento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["elemento_id"], name: "index_inclusiones_on_elemento_id"
+    t.index ["perfil_id"], name: "index_inclusiones_on_perfil_id"
+    t.index ["soporte_id"], name: "index_inclusiones_on_soporte_id"
+  end
+
   create_table "integrantes", force: :cascade do |t|
     t.integer "equipo_id"
     t.datetime "created_at", null: false
@@ -329,9 +340,10 @@ ActiveRecord::Schema.define(version: 2021_04_05_003536) do
     t.string "link"
     t.integer "tipo_soporte_id"
     t.string "imagen"
+    t.integer "annio"
+    t.string "sha1"
     t.integer "perfil_id"
     t.integer "elemento_id"
-    t.integer "annio"
     t.index ["annio"], name: "index_soportes_on_annio"
     t.index ["elemento_id"], name: "index_soportes_on_elemento_id"
     t.index ["owner_id"], name: "index_soportes_on_owner_id"
