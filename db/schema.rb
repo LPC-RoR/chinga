@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_034411) do
+ActiveRecord::Schema.define(version: 2021_04_05_044433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_034411) do
     t.string "pais"
     t.string "ciudad_autor"
     t.string "interprete"
-    t.string "link"
     t.string "forma_musical"
     t.integer "annio_creacion"
     t.integer "annio_estreno"

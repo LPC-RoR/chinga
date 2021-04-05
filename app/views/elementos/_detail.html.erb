@@ -87,15 +87,6 @@
 			</div>
 		<% end %>
 
-		<% if filtro_conditional_field?(@objeto, 'link') %>
-			<div class='row'>
-				<div class='col-md-12'>
-					<small><%= form.label 'Link' %></small></br>
-					<%= form.text_field(:link, class: 'form-control') %>
-				</div>
-			</div>
-		<% end %>
-
 		<% if filtro_conditional_field?(@objeto, 'annio_creacion') or filtro_conditional_field?(@objeto, 'annio_estreno') %>
 			<div class='row'>
 				<div class='col-md-6'>

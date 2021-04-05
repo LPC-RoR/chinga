@@ -37,6 +37,8 @@ class Elemento < ApplicationRecord
 
 	mount_uploader :ilustracion, IlustracionUploader
 
+	validates :titulo, uniqueness: true
+
 	def d_letra
 	  self.letra.gsub(/\n/, '<br>')
 	end

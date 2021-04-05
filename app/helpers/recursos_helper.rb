@@ -41,8 +41,7 @@
 	def crud_conditions(objeto, btn)
 		case objeto.class.name
 		when 'Elemento'
-#			usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id']
-			false
+			usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and objeto.estado == 'ingreso'
 		when 'Lista'
 			controller_name == 'perfiles'
 		when 'Texto'
