@@ -41,7 +41,8 @@
 	def crud_conditions(objeto, btn)
 		case objeto.class.name
 		when 'Elemento'
-			objeto.perfil.id == session[:perfil_activo]['id']
+#			usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id']
+			false
 		when 'Lista'
 			controller_name == 'perfiles'
 		when 'Texto'
@@ -55,7 +56,7 @@
 		when 'EstructuraPoetica'
 			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
 		when 'Soporte'
-			objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador]
+			usuario_signed_in? and (objeto.owner_id == session[:perfil_activo]['id'] or session[:es_administrador])
 		else
 			['TemaAyuda', 'Tutorial', 'Paso'].include?(objeto.class.name) ? (usuario_signed_in? ? session[:es_administrador] : false) : true
 		end

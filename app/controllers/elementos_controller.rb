@@ -15,16 +15,13 @@ class ElementosController < ApplicationController
   def show
     if usuario_signed_in?
       @activo = Perfil.find(session[:perfil_activo]['id'])
-
-      @coleccion = {}
-      @coleccion['listas'] = @objeto.listas.order(:lista)
-      @coleccion['soportes'] = @objeto.soportes
-
-      @listas_seleccion = Lista.find(@activo.listas.ids - @objeto.listas.ids)
       @mis_listas = @activo.listas.order(:lista)
-
-      @claves = @objeto.claves.order(:orden)
     end
+    @coleccion = {}
+    @coleccion['soportes'] = @objeto.soportes
+    @coleccion['comentarios'] = @objeto.comentarios
+
+    @claves = @objeto.claves.order(:orden)
   end
 
   # GET /elementos/new
@@ -117,10 +114,6 @@ class ElementosController < ApplicationController
       procesa_elemento(@objeto)
       @objeto.estado = params[:estado]
       @objeto.save
-    elsif params[:estado] == 'ingreso'
-      procesa_elemento(@objeto)
-      @objeto.estado = params[:estado]
-      @objeto.save
     else
       @objeto.estado = params[:estado]
       @objeto.save
@@ -155,6 +148,6 @@ class ElementosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def elemento_params
-      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache, :remove_ilustracion)
+      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :link, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache, :remove_ilustracion, :tradicional)
     end
 end

@@ -12,6 +12,8 @@ class ListasController < ApplicationController
 
   # GET /listas/1 or /listas/1.json
   def show
+    @coleccion = {}
+    @coleccion['elementos'] = @objeto.elementos
   end
 
   # GET /listas/new

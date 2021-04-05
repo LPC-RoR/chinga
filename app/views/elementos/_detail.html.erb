@@ -28,6 +28,13 @@
 			</div>
 		<% end %>
 
+		<p>
+		<label>
+		  <%= form.check_box :tradicional %>
+		  <%= :tradicional %>
+		</label>
+		</p>
+
 		<% if filtro_conditional_field?(@objeto, 'ciudad_autor') or filtro_conditional_field?(@objeto, 'pais') %>
 			<div class='row'>
 				<div class='col-md-6'>

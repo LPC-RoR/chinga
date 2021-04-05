@@ -80,6 +80,6 @@ class SoportesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def soporte_params
-      params.require(:soporte).permit(:soporte, :owner_id, :link, :tipo_soporte_id, :perfil_id, :elemento_id, :imagen, :remove_imagen, :imagen_cache)
+      params.require(:soporte).permit(:soporte, :owner_id, :link, :tipo_soporte_id, :perfil_id, :elemento_id, :imagen, :remove_imagen, :imagen_cache, :annio)
     end
 end

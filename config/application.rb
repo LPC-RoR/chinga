@@ -96,7 +96,7 @@ module Chinga
                 controllers: ['tema_ayudas', 'tutoriales', 'pasos', 'mensajes']
             },
             data: {
-                color: 'success',
+                color: 'secondary',
                 controllers: ['etapas', 'tablas', 'lineas', 'especificaciones', 'observaciones', 'archivos', 'imagenes']
             }
         }

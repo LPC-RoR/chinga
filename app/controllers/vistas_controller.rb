@@ -6,11 +6,11 @@ class VistasController < ApplicationController
 
   # GET /vistas or /vistas.json
   def index
-    activo = Perfil.find(session[:perfil_activo]['id'])
+    activo = Perfil.find(session[:perfil_activo]['id']) if usuario_signed_in?
 
     @coleccion = {}
     @coleccion['elementos'] = Elemento.where(estado: 'publicada').page(params[:page])
-    @coleccion['listas'] = activo.listas.order(:lista)
+    @coleccion['listas'] = activo.listas.order(:lista)  if usuario_signed_in?
   end
 
   # GET /vistas/1 or /vistas/1.json

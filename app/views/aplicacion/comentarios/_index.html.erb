@@ -1,0 +1,9 @@
+<% unless @coleccion['comentarios'].empty? %>
+	<table class="table table-striped table-sm  thead-dark">
+		<tbody>
+			<% @coleccion['comentarios'].each do |com| %>
+				<tr><td><%= render partial: 'aplicacion/perfiles/thumb_image', locals: {objeto: com.perfil} %></td><td><%= "| #{com.comentario} |" %></br><small><%= sanitize com.d_detalle %></small></td><td><%= render partial: '0p/tabla/btns', locals: {a: 'index', objeto: com} %></td></tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         match :manual, via: :get
       end
     end
+    resources :comentarios
   end
 
   # SCOPE HELP

@@ -6,7 +6,7 @@
 		<%= render partial: 'aplicacion/perfiles/img_card', locals: {objeto: @objeto.perfil} %>
 		<p class='text-center'><small><%= render partial: 'aplicacion/perfiles/status_perfil', locals: {objeto: @objeto.perfil} %></small></p>
 
-		<%= render partial: 'aplicacion/perfiles/gestion_listas', locals: {objeto: @objeto, coleccion: @mis_listas} %>
+		<%= render partial: 'aplicacion/perfiles/gestion_listas', locals: {objeto: @objeto, coleccion: @mis_listas} if usuario_signed_in?%>
 	</div>
 
 	<div class='col-md-4'>
@@ -21,7 +21,7 @@
 	</div>
 
 	<div class='col-md-4'>
-		<%= render partial: '0p/show/links', locals: {o: @objeto} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
+		<%= render partial: '0p/show/links', locals: {o: @objeto} if @objeto.perfil.id == session[:perfil_activo]['id'] if usuario_signed_in? %>
 
 		<% @claves.each do |clave| %>
 			<small><b><%= (clave.elementos.count == 1 ? clave.clave : (link_to clave.clave, clave)) %></b></small></br>
@@ -29,6 +29,15 @@
 </br>
 		<%= render partial: '0p/general/titulo', locals: {c: 'soportes', a: nil, titulo: 'Soportes', size: '5'} %>
 		<%= render partial: 'soportes/img_index', locals: {coleccion: @coleccion['soportes']} %>
-		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'soportes'} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
+		<% if usuario_signed_in? %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'soportes'} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
+		<% end %>
 	</div>
 </div>
+</br>
+
+<% if usuario_signed_in? %>
+<%= render partial: '0p/general/titulo', locals: {c: 'comentarios', a: nil, titulo: 'Comentarios', size: '5'} %>
+<%= render partial: "aplicacion/comentarios/index" %>
+<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'comentarios'} %>
+<% end %>

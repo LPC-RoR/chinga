@@ -1,8 +1,9 @@
 <%= form.select :tipo_soporte_id, TipoSoporte.all.order(:tipo_soporte).collect { |ts| [ts.tipo_soporte, ts.id] }, include_blank: false, prompt: "Seleccione Tipo Soporte" %></br>
 
-<small><%= form.label 'Soporte' %></small></br>
+<small><%= form.label 'Año | Soporte' %></small></br>
 <div class='form-inline'>
-	<%= form.text_field(:soporte, size: 65, class: 'form-control' ) %>
+	<%= form.number_field(:annio, size: 5, class: 'form-control' ) %>
+	<%= form.text_field(:soporte, size: 55, class: 'form-control' ) %>
 </div>
 <small><%= form.label 'Link' %></small></br>
 <div class='form-inline'>

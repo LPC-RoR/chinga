@@ -1,0 +1,29 @@
+<div class='row'>
+	<div class='col-md-4'>
+		<%= render partial: 'aplicacion/perfiles/img_card', locals: {objeto: @objeto} %>
+		<p class='text-info text-center'><small><%= @objeto.presentacion %></small></p>
+		<br>
+		<% if action_name == 'activo' %>
+			<div class="col text-center">
+				<%= render partial: '0p/tabla/btn', locals: {texto: 'Editar Perfil', link: [:edit, @objeto], delete: false, clr: c_color(@objeto.class.name.tableize)} %>
+			</div>
+		<% end %>
+	</div>
+	<div class='col-md-4'>
+		<%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Listas', size: '5'} %>
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'listas', a: 'index'} %>
+		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'listas'} if action_name == 'activo' %>
+	</div>
+	<!--div class='col-md-4'-->
+		<%#= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Ruedas', size: '5'} %>
+		<%#= render partial: '0p/tabla/tabla', locals: {c: 'ruedas', a: 'index'} %>
+	<!--/div-->
+	<div class='col-md-4'>
+		<%= render partial: '0p/general/titulo', locals: {c: 'soportes', a: nil, titulo: 'Links', size: '5'} %>
+		<%= render partial: 'soportes/img_index', locals: {coleccion: @coleccion['soportes']} %>
+		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'soportes'} if action_name == 'activo' %>
+		<!-- EQUIPOS OCULTOS -->
+		<%#= render partial: '0p/general/titulo', locals: {c: 'equipos', a: nil, titulo: 'Equipos', size: '5'} %>
+		<%#= render partial: '0p/tabla/tabla', locals: {c: 'equipos', a: 'index'} %>
+	</div>
+</div>

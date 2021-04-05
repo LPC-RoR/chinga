@@ -19,6 +19,8 @@ class Perfil < ApplicationRecord
 
 	has_many :soportes
 
+	has_many :comentarios, foreign_key: 'owner_id'
+
 	mount_uploader :imagen, ImagenUploader
 
 	def d_nombre

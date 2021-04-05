@@ -33,6 +33,8 @@ class Elemento < ApplicationRecord
 
 	has_many :soportes
 
+	has_many :comentarios
+
 	mount_uploader :ilustracion, IlustracionUploader
 
 	def d_letra

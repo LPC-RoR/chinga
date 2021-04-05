@@ -1,4 +1,6 @@
 class Aplicacion::ObservacionesController < ApplicationController
+  before_action :inicia_sesion
+  before_action :carga_temas_ayuda
   before_action :set_observacion, only: %i[ show edit update destroy ]
 
   # GET /observaciones or /observaciones.json
@@ -12,7 +14,12 @@ class Aplicacion::ObservacionesController < ApplicationController
 
   # GET /observaciones/new
   def new
-    @observacion = Observacion.new
+    case params[:class_name]
+    when 'Elemento'
+      padre = Elemento.find(params[:objeto_id]) unless params[:objeto_id].blank?
+    end
+
+    @objeto = padre.observaciones.new
   end
 
   # GET /observaciones/1/edit

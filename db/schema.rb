@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_054622) do
+ActiveRecord::Schema.define(version: 2021_04_05_003536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 2021_04_04_054622) do
     t.index ["sha1"], name: "index_claves_on_sha1"
   end
 
+  create_table "comentarios", force: :cascade do |t|
+    t.string "comentario"
+    t.text "detalle"
+    t.integer "elemento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "owner_id"
+    t.index ["elemento_id"], name: "index_comentarios_on_elemento_id"
+    t.index ["owner_id"], name: "index_comentarios_on_owner_id"
+  end
+
   create_table "creaciones", force: :cascade do |t|
     t.integer "autor_id"
     t.integer "elemento_id"
@@ -83,6 +94,7 @@ ActiveRecord::Schema.define(version: 2021_04_04_054622) do
     t.string "ilustracion"
     t.string "ilustracion_cache"
     t.string "estructura_poetica"
+    t.boolean "tradicional"
     t.index ["annio_creacion"], name: "index_elementos_on_annio_creacion"
     t.index ["annio_estreno"], name: "index_elementos_on_annio_estreno"
     t.index ["ciudad_autor"], name: "index_elementos_on_ciudad_autor"
@@ -95,6 +107,7 @@ ActiveRecord::Schema.define(version: 2021_04_04_054622) do
     t.index ["perfil_id"], name: "index_elementos_on_perfil_id"
     t.index ["soporte"], name: "index_elementos_on_soporte"
     t.index ["titulo"], name: "index_elementos_on_titulo"
+    t.index ["tradicional"], name: "index_elementos_on_tradicional"
   end
 
   create_table "equipos", force: :cascade do |t|
@@ -318,6 +331,8 @@ ActiveRecord::Schema.define(version: 2021_04_04_054622) do
     t.string "imagen"
     t.integer "perfil_id"
     t.integer "elemento_id"
+    t.integer "annio"
+    t.index ["annio"], name: "index_soportes_on_annio"
     t.index ["elemento_id"], name: "index_soportes_on_elemento_id"
     t.index ["owner_id"], name: "index_soportes_on_owner_id"
     t.index ["perfil_id"], name: "index_soportes_on_perfil_id"

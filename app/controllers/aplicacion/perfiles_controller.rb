@@ -34,6 +34,13 @@ class Aplicacion::PerfilesController < ApplicationController
 
   # GET /perfiles/1 or /perfiles/1.json
   def show
+    @objeto = Perfil.find(session[:perfil_activo]['id'])
+
+    @coleccion = {}
+
+    # ******************************** LISTAS ********************************
+    @coleccion['listas'] = @objeto.listas.order(:lista)
+    @coleccion['soportes'] = @objeto.soportes.order(:soporte)
   end
 
   # GET /perfiles/new
