@@ -118,7 +118,7 @@ module Chinga
                 'elementos' => ['*']
             },
             nuevo: {
-                'elementos' => ['self', 'contribuciones'],
+                'elementos' => ['contribuciones'],
                 'equipos' => ['perfiles']
             },
             inline_form: {
