@@ -33,17 +33,6 @@ module Chinga
         nuevo:   {'self' => true,  'show' => false}
     }
 
-    # Se verifica con el helper in_show?(c, label)
-    config.s_default = {
-        titulo:       true,
-        links:        true,
-        clasifica:   false,
-        detalle:     false,
-        inline_form: false,
-        tabla:        true,
-        adjuntos:    false
-    }
-
     config.look_parameters = {
         image_sizes: ['entire', 'half', 'quarter', 'thumb'],
         colors: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'muted', 'white']
@@ -179,12 +168,7 @@ module Chinga
     ## ------------------------------------------------- SHOW
 
     config.show = {
-        titulo: [],
-        show_title: ['Elemento', 'Perfil'],
         partial_links: [],
-        detalle: ['Equipo'],
-        inline_form: ['Elemento', 'Equipo'],
-        tabla: ['Elemento'],
         links: ['Elemento'],
         bt_links: {
 #            'Publicacion' => ['revista']
@@ -192,16 +176,7 @@ module Chinga
         hmt_links: {
 #            'Publicacion' => ['investigadores']
         },
-        status: ['Equipo'],
-        hidden: {
-            'publicaciones'  => ['autores', 'investigadores', 'procesos', 'cargas', 'clasificaciones', 'carpetas', 'evaluaciones', 'asignaciones', 'areas', 'rutas', 'instancias'],
-            'carpetas'       => ['clasificaciones'],
-            'investigadores' => ['autores', 'carpetas'],
-            'equipos'        => ['investigadores', 'instancias', 'integrantes', 'herencias'],
-            'areas'          => ['clasificaciones', 'cargas'],
-            'conceptos'      => ['rel_hijos'],
-            'instancias'     => ['rutas']
-        }
+        status: ['Equipo']
     }
 
   end

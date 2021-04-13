@@ -104,12 +104,14 @@
 	## ------------------------------------------------------- SHOW
 
 	# Método de apoyo usado en get_new_link (abajo)
-	def objeto_title(objeto)
+	def show_title(objeto)
 		case objeto.class.name
 		when 'Elemento'
 			objeto.titulo
 		when 'Perfil'
 			"| #{objeto.usuario.present? ? objeto.usuario : 'ingresar usuario'} | #{objeto.email} |"
+		else
+			objeto.send(objeto.class.name.downcase)
 		end
 	end
 
