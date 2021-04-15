@@ -8,14 +8,14 @@
 	    # [2] : Tipo de ítem {'admin', 'usuario', 'anonimo', 'excluir'}
 	    # se usa directamente en 0p/navbar/_navbar.html.erb
 	    [
-	        ['Perfil',         "/perfiles/activo",  'usuario'],
-	        ["Colección",      "/vistas",           'anonimo'],
-	        ["Contribuciones", "/contribuciones",   'usuario'],
+	        ['Perfil',         "/perfiles/activo",    'usuario'],
+	        ["Colección",      "/vistas",             'anonimo'],
+	        ["Mis Contribuciones", "/contribuciones", 'usuario'],
 	#        ["Equipos",        "/equipos",         'usuario'],
 	#        ["Listas",         "/listas",          'usuario'],
-	        ['Parámetros',      '/parametros',     'usuario'],    
-	        ["Administradores", "/administradores",   'admin'],
-	        ["Temas Ayuda",     "/tema_ayudas",       'admin'] 
+	        ['Parámetros',      '/parametros',          'admin'],    
+	        ["Administradores", "/administradores",     'admin'],
+	        ["Temas Ayuda",     "/tema_ayudas",         'admin'] 
 	    ]
 	end
 
