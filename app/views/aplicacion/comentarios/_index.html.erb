@@ -3,7 +3,7 @@
 		<tbody>
 			<% @coleccion['comentarios'].each do |com| %>
 				<tr>
-					<td><%= link_to image_tag("#{com.perfil.imagen? ? com.perfil.imagen.thumb.url : 'avatar_defecto.png'}", class: "rounded mx-auto d-block img-thumbnail"), link: com.perfil %></td>
+					<td><%= link_to image_tag("#{com.perfil.imagen? ? com.perfil.imagen.thumb.url : 'avatar_defecto.png'}", class: "rounded mx-auto d-block img-thumbnail"), com.perfil %></td>
 					<!--td><%#= render partial: 'aplicacion/perfiles/thumb_image', locals: {objeto: com.perfil} %></td-->
 					<td><small><%= sanitize com.d_detalle %></small></td>
 					<td><%= render partial: '0p/tabla/btns', locals: {a: 'index', objeto: com} if com.owner_id == session[:perfil_activo]['id'] %></td>
