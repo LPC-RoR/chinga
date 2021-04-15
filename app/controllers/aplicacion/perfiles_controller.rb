@@ -34,7 +34,7 @@ class Aplicacion::PerfilesController < ApplicationController
 
   # GET /perfiles/1 or /perfiles/1.json
   def show
-    @objeto = Perfil.find(session[:perfil_activo]['id'])
+    #@objeto = Perfil.find(session[:perfil_activo]['id'])
 
     @coleccion = {}
 
