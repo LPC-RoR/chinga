@@ -1,0 +1,6 @@
+<%= form_for :nuevo_comentario, url: "/comentarios/nuevo?objeto_id=#{@objeto.id}&owner_id=#{session[:perfil_activo]['id']}" do |form| %>
+
+	<%= form.text_area :detalle, size: '66x4' %></br>
+	<%= form.submit 'Comentar'  %>
+
+<% end  %>

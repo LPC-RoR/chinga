@@ -22,6 +22,15 @@ class Aplicacion::ComentariosController < ApplicationController
     @objeto = padre.comentarios.new(owner_id: session[:perfil_activo]['id'])
   end
 
+  def nuevo
+    padre = Elemento.find(params[:objeto_id])
+    unless params[:nuevo_comentario][:detalle].blank?
+      comentario = padre.comentarios.create(owner_id: params[:owner_id], detalle: params[:nuevo_comentario][:detalle])
+    end
+
+    redirect_to padre
+  end
+
   # GET /comentarios/1/edit
   def edit
   end

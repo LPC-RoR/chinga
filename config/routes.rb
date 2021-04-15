@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         match :manual, via: :get
       end
     end
-    resources :comentarios
+    resources :comentarios do
+      match :nuevo, via: :post, on: :collection
+    end
   end
 
   # SCOPE HELP
