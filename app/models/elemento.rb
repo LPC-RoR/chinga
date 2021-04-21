@@ -25,13 +25,14 @@ class Elemento < ApplicationRecord
 
 	has_many :lineas
 
-	has_many :clasificaciones
+	has_many :clasificaciones, inverse_of: :elemento
 	has_many :listas, through: :clasificaciones
 
 	has_many :rutas
 	has_many :claves, through: :rutas
 
 	has_many :soportes
+	accepts_nested_attributes_for :soportes, allow_destroy: true
 
 	has_many :comentarios
 

@@ -116,7 +116,7 @@ module Chinga
         },
         tabs: {
             'elementos' => {
-                'contribuciones' => ['ingreso', 'publicada', 'papelera']
+                'contribuciones' => ['publicada', 'papelera']
             },
             'equipos' => {
                 'perfiles' => ['Administrados', 'Participaciones']

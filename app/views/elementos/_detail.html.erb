@@ -10,40 +10,42 @@
 <div class='row'>
 	<div class='col-md-6'>
 
+		<% if filtro_conditional_field?(@objeto, 'autor') %>
+			<div class='row'>
+				<div class='col-md-12'>
+					<small><%= form.label 'Autor' %><small> : Autores separados por coma. Si es "tradicional" sólo marque el checkbox.</small></small></br>
+					<%= form.text_field(:autor, class: 'form-control') %>
+					<label>
+					  <%= form.check_box :tradicional %>
+					  <%= :tradicional %>
+					</label>
+
+				</div>
+			</div>
+		<% end %>
+
 		<% if filtro_conditional_field?(@objeto, 'interprete') %>
 			<div class='row'>
 				<div class='col-md-12'>
-					<small><%= form.label 'Interprete' %></small></br>
+					<small><%= form.label 'Interprete' %><small> : Interpretes separados por coma.</small></small></br>
 					<%= form.text_field(:interprete, class: 'form-control') %>
 				</div>
 			</div>
 		<% end %>
 
-		<% if filtro_conditional_field?(@objeto, 'autor') %>
-			<div class='row'>
-				<div class='col-md-12'>
-					<small><%= form.label 'Autor' %></small></br>
-					<%= form.text_field(:autor, class: 'form-control') %>
-				</div>
-			</div>
-		<% end %>
-
-		<p>
-		<label>
-		  <%= form.check_box :tradicional %>
-		  <%= :tradicional %>
-		</label>
-		</p>
-
 		<% if filtro_conditional_field?(@objeto, 'ciudad_autor') or filtro_conditional_field?(@objeto, 'pais') %>
 			<div class='row'>
-				<div class='col-md-6'>
-					<small><%= form.label 'Ciudad Autor' %></small></br>
+				<div class='col-md-4'>
+					<small><%= form.label 'Ciudad' %></small></br>
 					<%= form.text_field(:ciudad_autor, class: 'form-control') %>
 				</div>
-				<div class='col-md-6'>
+				<div class='col-md-4'>
 					<small><%= form.label 'Pais' %></small></br>
 					<%= form.text_field(:pais, class: 'form-control') %>
+				</div>
+				<div class='col-md-4'>
+					<small><%= form.label 'Año' %></small></br>
+					<%= form.text_field(:annio_creacion, class: 'form-control') %>
 				</div>
 			</div>
 		<% end %>
@@ -52,7 +54,7 @@
 		<% if filtro_conditional_field?(@objeto, 'genero_autor') %>
 			<div class='row'>
 				<div class='col-md-12'>
-					<%= form.select :genero_autor, @genero_autores, include_blank: '+ Genero Autor' %>
+					<%= form.select :genero_autor, GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}, include_blank: '+ Genero Autor' %>
 				</div>
 			</div>
 		<% end %>
@@ -60,53 +62,50 @@
 		<% if filtro_conditional_field?(@objeto, 'forma_musical') %>
 			<div class='row'>
 				<div class='col-md-12'>
-					<%= form.select :forma_musical, @forma_musicales, include_blank: '+ Forma Musical' %>
+					<%= form.select :forma_musical, FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}, include_blank: '+ Forma Musical' %>
+					<%= form.select :estructura_poetica, EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}, include_blank: '+ Estructura Poética' %>
 				</div>
 			</div>
 		<% end %>
 
-		<% if filtro_conditional_field?(@objeto, 'estructura_poetica') %>
-			<div class='row'>
-				<div class='col-md-12'>
-					<%= form.select :estructura_poetica, @estructura_poeticas, include_blank: '+ Estructura Poética' %>
-				</div>
-			</div>
-		<% end %>
+</br>
+		<div class='row'>
+			<div class='col-md-12'>
+				<ul>
+				<%= form.fields_for :soportes do |soportes_form| %>
+					<li>
+						<%= soportes_form.label :soporte %>
 
-		<% if filtro_conditional_field?(@objeto, 'soporte') %>
-			<div class='row'>
-				<div class='col-md-12'>
-					<%= form.select :soporte, @soportes, include_blank: '+ Soporte' %>
-				</div>
-			</div>
-			<div class='row'>
-				<div class='col-md-12'>
-					<small><%= form.label 'Titulo Soporte' %></small></br>
-					<%= form.text_field(:soporte_nombre, class: 'form-control') %>
-				</div>
-			</div>
-		<% end %>
+						<%= soportes_form.select :tipo_soporte_id, TipoSoporte.all.order(:tipo_soporte).collect { |ts| [ts.tipo_soporte, ts.id] }, include_blank: false, prompt: "Seleccione Tipo Soporte" %></br>
+						<%= soportes_form.text_field :soporte, placeholder: 'texto' %>
+						<%= soportes_form.text_field :link, placeholder: 'link' %>
+						<%= soportes_form.check_box :_destroy %>
+						<small><small>Eliminar</small></small>
 
-		<% if filtro_conditional_field?(@objeto, 'annio_creacion') or filtro_conditional_field?(@objeto, 'annio_estreno') %>
-			<div class='row'>
-				<div class='col-md-6'>
-					<small><%= form.label 'Año Creación' %></small></br>
-					<%= form.text_field(:annio_creacion, class: 'form-control') %>
-				</div>
-				<div class='col-md-6'>
-					<small><%= form.label 'Año Estreno' %></small></br>
-					<%= form.text_field(:annio_estreno, class: 'form-control') %>
-				</div>
+					</li>
+				<% end %>
+				</ul>
 			</div>
-		<% end %>
+		</div>		
 
-		<% if filtro_conditional_field?(@objeto, 'otro_soporte') %>
-			<div class='row'>
-				<div class='col-md-12'>
-					<small><%= form.label 'Otro Soporte' %></small></br>
-					<%= form.text_field(:otro_soporte, class: 'form-control') %>
-				</div>
-			</div>
+		<p>
+			<small><%= form.label 'Ilustración' %></small></br>
+
+			<% if @objeto.ilustracion.present? %>
+		  		<%= image_tag(@objeto.ilustracion.half.url) %></br>
+			<% else %>
+			    <%= form.file_field :ilustracion %>
+			    <%= form.hidden_field :ilustracion_cache %>
+			<% end %>
+		</p>
+
+		<% if @objeto.ilustracion.present? %>
+			<p>
+			<label>
+			  <%= form.check_box :remove_ilustracion %>
+			  Remueve Ilustracion
+			</label>
+			</p>
 		<% end %>
 
 	</div>
@@ -120,26 +119,6 @@
 		</div>
 	</div>
 </div>
-
-<p>
-	<small><%= form.label 'Ilustracion' %></small></br>
-
-	<% if @objeto.ilustracion.present? %>
-  		<%= image_tag(@objeto.ilustracion.half.url) %></br>
-	<% else %>
-	    <%= form.file_field :ilustracion %>
-	    <%= form.hidden_field :ilustracion_cache %>
-	<% end %>
-</p>
-
-<% if @objeto.ilustracion.present? %>
-	<p>
-	<label>
-	  <%= form.check_box :remove_ilustracion %>
-	  Remueve Ilustracion
-	</label>
-	</p>
-<% end %>
 
 <%= form.hidden_field :estado %>
 <%= form.hidden_field :perfil_id %>

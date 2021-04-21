@@ -7,9 +7,9 @@ class ContribucionesController < ApplicationController
   # GET /contribuciones or /contribuciones.json
   def index
     if params[:html_options].blank?
-      @tab = 'ingreso'
+      @tab = 'publicada'
     else
-      @tab = params[:html_options][:tab].blank? ? 'ingreso' : params[:html_options][:tab]
+      @tab = params[:html_options][:tab].blank? ? 'publicada' : params[:html_options][:tab]
     end
 
     @activo = Perfil.find(session[:perfil_activo]['id'])

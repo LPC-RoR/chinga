@@ -32,6 +32,15 @@ class Aplicacion::PerfilesController < ApplicationController
 
   end
 
+  def proceso
+    ingresos = Elemento.where(estado: 'ingreso')
+    ingresos.each do |ele|
+      ele.estado = 'publicada'
+      ele.save
+    end
+    redirect_to root_path
+  end
+
   # GET /perfiles/1 or /perfiles/1.json
   def show
     #@objeto = Perfil.find(session[:perfil_activo]['id'])

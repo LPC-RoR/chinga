@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :perfiles do
       resources :listas
       match :activo, via: :get, on: :collection
+      match :proceso, via: :get, on: :collection
     end
     resources :observaciones
     resources :recursos do
@@ -53,6 +54,9 @@ Rails.application.routes.draw do
     match :estado, via: :get, on: :member
     match :asignar, via: :get, on: :member
     match :desasignar, via: :get, on: :member
+    match :publicar, via: :get, on: :member
+    match :papelera, via: :get, on: :member
+    match :eliminar, via: :get, on: :member
   end
   resources :equipos do
     match :nuevo, via: :post, on: :collection

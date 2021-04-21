@@ -15,7 +15,8 @@
 	#        ["Listas",         "/listas",          'usuario'],
 	        ['Parámetros',      '/parametros',          'admin'],    
 	        ["Administradores", "/administradores",     'admin'],
-	        ["Temas Ayuda",     "/tema_ayudas",         'admin'] 
+	        ["Temas Ayuda",     "/tema_ayudas",         'admin'],
+	        ['Proceso',         '/perfiles/proceso',      'dog'] 
 	    ]
 	end
 
@@ -41,7 +42,7 @@
 	def crud_conditions(objeto, btn)
 		case objeto.class.name
 		when 'Elemento'
-			usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and objeto.estado == 'ingreso'
+			usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and controller_name == 'contribuciones' and objeto.estado == 'publicada'
 		when 'Lista'
 			controller_name == 'perfiles'
 		when 'Texto'
@@ -65,13 +66,26 @@
 		case objeto.class.name
 		when 'Lista'
 			 ['elementos', 'equipos'].include?(controller_name)
+		when 'Elemento'
+			acceso = usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and controller_name == 'contribuciones'
+			if btn == 'Papelera'
+				objeto.estado == 'publicada' and acceso
+			elsif ['Eliminar', 'Publicar'].include?(btn)
+				objeto.estado == 'papelera' and acceso
+			end
 		end
 	end
 
 	def x_btns(objeto)
 		case objeto.class.name
 		when 'Lista'
-			[['Desclasificar', '/listas/', '/desclasificar', true]]
+			[['Desclasificar', '/listas/desclasificar', true]]
+		when 'Elemento'
+			[
+				['Publicar', '/publicar', true],
+				['Papelera', '/papelera', true],
+				['Eliminar', '/eliminar', true]
+			]
         else
         	[]
 		end		

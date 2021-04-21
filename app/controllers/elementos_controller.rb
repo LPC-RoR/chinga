@@ -2,7 +2,13 @@ class ElementosController < ApplicationController
   before_action :authenticate_usuario!, except: :show
   before_action :inicia_sesion
   before_action :carga_temas_ayuda
-  before_action :set_elemento, only: %i[ show edit update destroy estado asignar desasignar ]
+  before_action :set_elemento, only: %i[ show edit update destroy estado asignar desasignar eliminar papelera publicar ]
+
+  before_action :corrige_elemento, only: :edit
+
+  after_action :publica_elemento, only: [:create, :update]
+  after_action :limpia_soportes, only: [:create, :update]
+  after_action :corrige_elemento, only: :destroy
 
   include ProcesoElemento
 
@@ -27,20 +33,13 @@ class ElementosController < ApplicationController
   # GET /elementos/new
   def new
     @activo = Perfil.find(session[:perfil_activo]['id'])
-    @objeto = @activo.contribuciones.new(estado: 'ingreso')
-
-    @genero_autores      = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
-    @forma_musicales     = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
-    @estructura_poeticas = EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}
-    @soportes            = Soporte.all.order(:soporte).map {|sop| sop.soporte}
+    @objeto = @activo.contribuciones.new(estado: 'publicada')
+    4.times { @objeto.soportes.build }
   end
 
   # GET /elementos/1/edit
   def edit
-    @genero_autores      = GeneroAutor.all.order(:genero_autor).map {|ga| ga.genero_autor}
-    @forma_musicales     = FormaMusical.all.order(:forma_musical).map {|fm| fm.forma_musical}
-    @estructura_poeticas = EstructuraPoetica.all.order(:estructura_poetica).map {|ep| ep.estructura_poetica}
-    @soportes            = Soporte.all.order(:soporte).map {|sop| sop.soporte}
+    2.times { @objeto.soportes.build }
   end
 
   # POST /elementos or /elementos.json
@@ -85,6 +84,31 @@ class ElementosController < ApplicationController
     @objeto.listas.delete(lista)
 
     redirect_to @objeto
+  end
+
+  def publicar
+    @objeto.estado = 'publicada'
+    @objeto.save
+    procesa_elemento(@objeto)
+
+    redirect_to contribuciones_path
+  end
+
+  def papelera
+    desprocesa_elemento(@objeto)
+    @objeto.estado = 'papelera'
+    @objeto.save
+
+    redirect_to contribuciones_path
+  end
+
+  def eliminar
+    desprocesa_elemento(@objeto)
+    @objeto.soportes.delete_all
+    @objeto.listas.delete_all
+    @objeto.delete
+
+    redirect_to contribuciones_path
   end
 
   def estado
@@ -134,6 +158,19 @@ class ElementosController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def publica_elemento
+      procesa_elemento(@objeto)
+    end
+
+    def corrige_elemento
+      desprocesa_elemento(@objeto)
+    end
+
+    def limpia_soportes
+      en_blanco = @objeto.soportes.where(tipo_soporte_id: nil)
+      en_blanco.delete_all
+    end
+
     def set_elemento
       @objeto = Elemento.find(params[:id])
     end
@@ -148,6 +185,6 @@ class ElementosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def elemento_params
-      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache, :remove_ilustracion, :tradicional)
+      params.require(:elemento).permit(:titulo, :letra, :autor, :genero_autor, :pais, :ciudad_autor, :interprete, :forma_musical, :annio_creacion, :annio_estreno, :otro_soporte, :estado, :perfil_id, :estructura_poetica, :soporte, :soporte_nombre, :ilustracion, :ilustracion_cache, :remove_ilustracion, :tradicional, soportes_attributes: [:id, :tipo_soporte_id, :soporte, :link, :_destroy])
     end
 end

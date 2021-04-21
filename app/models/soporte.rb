@@ -13,9 +13,9 @@ class Soporte < ApplicationRecord
 
 	mount_uploader :imagen, ImagenUploader
 
-	belongs_to :tipo_soporte
+	belongs_to :tipo_soporte, optional: true
 	belongs_to :perfil, optional: true
 	belongs_to :elemento, optional: true
 
-	validates :soporte, :link, presence: true
+#	validates :soporte, presence: true
 end
