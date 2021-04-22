@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ind Facetas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ind estructura</th>
+      <th>Ind faceta</th>
+      <th>Faceta</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ind_facetas.each do |ind_faceta| %>
+      <tr>
+        <td><%= ind_faceta.ind_estructura_id %></td>
+        <td><%= ind_faceta.ind_faceta %></td>
+        <td><%= ind_faceta.faceta %></td>
+        <td><%= link_to 'Show', ind_faceta %></td>
+        <td><%= link_to 'Edit', edit_ind_faceta_path(ind_faceta) %></td>
+        <td><%= link_to 'Destroy', ind_faceta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ind Faceta', new_ind_faceta_path %>

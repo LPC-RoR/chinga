@@ -1,0 +1,32 @@
+<%= form_with(model: ind_faceta, local: true) do |form| %>
+  <% if ind_faceta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ind_faceta.errors.count, "error") %> prohibited this ind_faceta from being saved:</h2>
+
+      <ul>
+      <% ind_faceta.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ind_estructura_id %>
+    <%= form.number_field :ind_estructura_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ind_faceta %>
+    <%= form.text_field :ind_faceta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :faceta %>
+    <%= form.text_field :faceta %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

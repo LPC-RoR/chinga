@@ -4,6 +4,8 @@ class Aplicacion::PerfilesController < ApplicationController
   before_action :carga_temas_ayuda
   before_action :set_perfil, only: %i[ show edit update destroy ]
 
+  require 'yaml'
+
   # GET /perfiles or /perfiles.json
   def index
     @coleccion = Perfil.all
@@ -33,11 +35,29 @@ class Aplicacion::PerfilesController < ApplicationController
   end
 
   def proceso
-    ingresos = Elemento.where(estado: 'ingreso')
-    ingresos.each do |ele|
-      ele.estado = 'publicada'
-      ele.save
+
+#    ingresos = Elemento.where(estado: 'ingreso')
+#    ingresos.each do |ele|
+#      ele.estado = 'publicada'
+#      ele.save
+#    end
+
+#    diccionario = YAML.load_file('diccionario.yml')
+#    puts config['last_update'] #in my file this is set to "some data"
+#    diccionario = [IndPalabra::E_ESPANOL, IndPalabra::E_INGLES, IndPalabra::NUMBERS, IndPalabra::EXCEPTIONS]
+      diccionario = {}
+      diccionario['e_espanol'] = IndPalabra::E_ESPANOL
+      diccionario['e_ingles']  = IndPalabra::E_INGLES
+      diccionario['numbers']   = IndPalabra::NUMBERS
+      diccionario['exceptions'] = IndPalabra::EXCEPTIONS
+#    diccionario['e_espanol']  = IndPalabra::E_ESPANOL
+#    diccionario['e_ingles']   = IndPalabra::E_INGLES
+#    diccionario['numbers']    = IndPalabra::NUMBERS
+#    diccionario['exceptions'] = IndPalabra::EXCEPTIONS
+    File.open('config/diccionario.yml','w') do |h| 
+       h.write diccionario.to_yaml
     end
+
     redirect_to root_path
   end
 

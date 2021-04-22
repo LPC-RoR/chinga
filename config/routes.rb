@@ -37,6 +37,23 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: 'busqueda' do
+    resources :ind_bases
+    resources :ind_claves
+    resources :ind_direcciones
+    resources :ind_estructuras do
+      resources :ind_modelos
+      match :procesa_estructura, via: :get, on: :member
+    end
+    resources :ind_expresiones
+    resources :ind_facetas
+    resources :ind_indices
+    resources :ind_lenguajes
+    resources :ind_modelos
+    resources :ind_palabras
+    resources :ind_redacciones
+  end
+
   resources :tipo_soportes
   resources :rutas
   resources :claves

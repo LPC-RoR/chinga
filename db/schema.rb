@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_044433) do
+ActiveRecord::Schema.define(version: 2021_04_22_012352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,6 +181,115 @@ ActiveRecord::Schema.define(version: 2021_04_05_044433) do
     t.index ["elemento_id"], name: "index_inclusiones_on_elemento_id"
     t.index ["perfil_id"], name: "index_inclusiones_on_perfil_id"
     t.index ["soporte_id"], name: "index_inclusiones_on_soporte_id"
+  end
+
+  create_table "ind_bases", force: :cascade do |t|
+    t.integer "clave_id"
+    t.integer "ind_palabra_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clave_id"], name: "index_ind_bases_on_clave_id"
+    t.index ["ind_palabra_id"], name: "index_ind_bases_on_ind_palabra_id"
+  end
+
+  create_table "ind_claves", force: :cascade do |t|
+    t.integer "ind_clave"
+    t.integer "ind_estructura_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_clave"], name: "index_ind_claves_on_ind_clave"
+    t.index ["ind_estructura_id"], name: "index_ind_claves_on_ind_estructura_id"
+  end
+
+  create_table "ind_direcciones", force: :cascade do |t|
+    t.integer "origen_id"
+    t.integer "destino_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destino_id"], name: "index_ind_direcciones_on_destino_id"
+    t.index ["origen_id"], name: "index_ind_direcciones_on_origen_id"
+  end
+
+  create_table "ind_estructuras", force: :cascade do |t|
+    t.string "ind_estructura"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_estructura"], name: "index_ind_estructuras_on_ind_estructura"
+  end
+
+  create_table "ind_expresiones", force: :cascade do |t|
+    t.string "ind_expresion"
+    t.integer "ind_estructura_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_estructura_id"], name: "index_ind_expresiones_on_ind_estructura_id"
+    t.index ["ind_expresion"], name: "index_ind_expresiones_on_ind_expresion"
+  end
+
+  create_table "ind_facetas", force: :cascade do |t|
+    t.integer "ind_estructura_id"
+    t.string "ind_faceta"
+    t.string "faceta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["faceta"], name: "index_ind_facetas_on_faceta"
+    t.index ["ind_estructura_id"], name: "index_ind_facetas_on_ind_estructura_id"
+    t.index ["ind_faceta"], name: "index_ind_facetas_on_ind_faceta"
+  end
+
+  create_table "ind_indices", force: :cascade do |t|
+    t.integer "ind_estructura_id"
+    t.integer "ind_clave_id"
+    t.integer "ind_faceta_id"
+    t.string "class_name"
+    t.integer "objeto_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["class_name"], name: "index_ind_indices_on_class_name"
+    t.index ["ind_clave_id"], name: "index_ind_indices_on_ind_clave_id"
+    t.index ["ind_estructura_id"], name: "index_ind_indices_on_ind_estructura_id"
+    t.index ["ind_faceta_id"], name: "index_ind_indices_on_ind_faceta_id"
+    t.index ["objeto_id"], name: "index_ind_indices_on_objeto_id"
+  end
+
+  create_table "ind_lenguajes", force: :cascade do |t|
+    t.string "ind_lenguaje"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_lenguaje"], name: "index_ind_lenguajes_on_ind_lenguaje"
+  end
+
+  create_table "ind_modelos", force: :cascade do |t|
+    t.integer "ind_estructura_id"
+    t.string "ind_modelo"
+    t.string "campos"
+    t.string "facetas"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_estructura_id"], name: "index_ind_modelos_on_ind_estructura_id"
+    t.index ["ind_modelo"], name: "index_ind_modelos_on_ind_modelo"
+  end
+
+  create_table "ind_palabras", force: :cascade do |t|
+    t.integer "ind_estructura_id"
+    t.integer "ind_lenguaje_id"
+    t.integer "ind_clave_id"
+    t.string "ind_palabra"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_clave_id"], name: "index_ind_palabras_on_ind_clave_id"
+    t.index ["ind_estructura_id"], name: "index_ind_palabras_on_ind_estructura_id"
+    t.index ["ind_lenguaje_id"], name: "index_ind_palabras_on_ind_lenguaje_id"
+    t.index ["ind_palabra"], name: "index_ind_palabras_on_ind_palabra"
+  end
+
+  create_table "ind_redacciones", force: :cascade do |t|
+    t.integer "ind_palabra_id"
+    t.integer "ind_expresion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ind_expresion_id"], name: "index_ind_redacciones_on_ind_expresion_id"
+    t.index ["ind_palabra_id"], name: "index_ind_redacciones_on_ind_palabra_id"
   end
 
   create_table "integrantes", force: :cascade do |t|

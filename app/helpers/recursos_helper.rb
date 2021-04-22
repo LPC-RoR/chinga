@@ -16,6 +16,7 @@
 	        ['Parámetros',      '/parametros',          'admin'],    
 	        ["Administradores", "/administradores",     'admin'],
 	        ["Temas Ayuda",     "/tema_ayudas",         'admin'],
+	        ["Estructuras",     "/ind_estructuras",       'dog'],
 	        ['Proceso',         '/perfiles/proceso',      'dog'] 
 	    ]
 	end
@@ -67,7 +68,7 @@
 		when 'Lista'
 			 ['elementos', 'equipos'].include?(controller_name)
 		when 'Elemento'
-			acceso = usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and controller_name == 'contribuciones'
+			acceso = (usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and controller_name == 'contribuciones')
 			if btn == 'Papelera'
 				objeto.estado == 'publicada' and acceso
 			elsif ['Eliminar', 'Publicar'].include?(btn)
@@ -125,7 +126,7 @@
 		when 'Perfil'
 			"| #{objeto.usuario.present? ? objeto.usuario : 'ingresar usuario'} | #{objeto.email} |"
 		else
-			objeto.send(objeto.class.name.downcase)
+			objeto.send(objeto.class.name.tableize.singularize)
 		end
 	end
 

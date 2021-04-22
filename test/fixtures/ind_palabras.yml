@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ind_estructura_id: 1
+  ind_lenguaje_id: 1
+  ind_clave_id: 1
+  ind_palabra: MyString
+
+two:
+  ind_estructura_id: 1
+  ind_lenguaje_id: 1
+  ind_clave_id: 1
+  ind_palabra: MyString

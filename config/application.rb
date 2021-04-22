@@ -169,7 +169,7 @@ module Chinga
 
     config.show = {
         partial_links: [],
-        links: ['Elemento'],
+        links: [],
         bt_links: {
 #            'Publicacion' => ['revista']
         },
