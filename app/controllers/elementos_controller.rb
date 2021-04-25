@@ -10,7 +10,8 @@ class ElementosController < ApplicationController
   after_action :limpia_soportes, only: [:create, :update]
   after_action :corrige_elemento, only: :destroy
 
-  include ProcesoElemento
+  include ProcesaEstructura
+  include ProcesaElemento
 
   # GET /elementos or /elementos.json
   def index
@@ -23,6 +24,10 @@ class ElementosController < ApplicationController
       @activo = Perfil.find(session[:perfil_activo]['id'])
       @mis_listas = @activo.listas.order(:lista)
     end
+
+    tipos_soporte_ids = TipoSoporte.where(tipo_soporte: ['Disco', 'Libro']).ids
+    @soportes_base = @objeto.soportes.where(tipo_soporte_id: tipos_soporte_ids)
+
     @coleccion = {}
     @coleccion['soportes'] = @objeto.soportes
     @coleccion['comentarios'] = @objeto.comentarios
@@ -104,46 +109,15 @@ class ElementosController < ApplicationController
 
   def eliminar
     desprocesa_elemento(@objeto)
-    @objeto.soportes.delete_all
-    @objeto.listas.delete_all
+    @objeto.soportes.each do |sop|
+      sop.delete
+    end
+    @objeto.listas.each do |lis|
+      lis.delete
+    end
     @objeto.delete
 
     redirect_to contribuciones_path
-  end
-
-  def estado
-    # @objeto = ELEMENTO
-    @activo = Perfil.find(session[:perfil_activo]['id'])
-
-    if params[:estado] == 'eliminado'
-      @objeto.delete
-    elsif ['correccion', 'ingreso'].include?(params[:estado])
-        desprocesa_elemento(@objeto) if params[:estado] == 'correccion'
-        @objeto.estado = 'ingreso'
-#        @objeto.unicidad = 'unico'
-        @objeto.save
-    elsif params[:estado] == 'multiple'
-      @objeto.estado = 'publicada'
-      @objeto.unicidad = 'multiple'
-      @objeto.save
-    elsif params[:estado] == 'papelera'
-      if @objeto.listas.any?
-        @objeto.listas.each do |lst|
-          @objeto.listas.delete(lst)
-        end
-      end
-      @objeto.estado = params[:estado]
-      @objeto.save
-    elsif params[:estado] == 'publicada'
-      procesa_elemento(@objeto)
-      @objeto.estado = params[:estado]
-      @objeto.save
-    else
-      @objeto.estado = params[:estado]
-      @objeto.save
-    end
-
-    redirect_to @objeto
   end
 
   # DELETE /elementos/1 or /elementos/1.json
@@ -160,10 +134,12 @@ class ElementosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def publica_elemento
       procesa_elemento(@objeto)
+      indexa_registro(@objeto)
     end
 
     def corrige_elemento
       desprocesa_elemento(@objeto)
+      desindexa_registro(@objeto)
     end
 
     def limpia_soportes

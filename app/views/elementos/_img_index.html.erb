@@ -8,7 +8,7 @@
 					<%= image_tag "#{objeto.ilustracion? ? objeto.ilustracion.thumb.url : 'avatar_defecto.png'}", class: "rounded mx-auto d-block img-thumbnail" %>
 				</td>
 				<td>
-					<p><%= link_to objeto.titulo, objeto %></br><small><%= objeto.autor %></small></p>
+					<p><%= link_to objeto.titulo, objeto %></br><small><%= objeto.d_autor %></small></p>
 				</td>
 				<td><%= render partial: '0p/tabla/btns', locals: {a: 'index', objeto: objeto} %></td>
 			</tr>

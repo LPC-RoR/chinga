@@ -6,6 +6,9 @@ class Aplicacion::PerfilesController < ApplicationController
 
   require 'yaml'
 
+  include ProcesaEstructura
+  include ProcesaElemento
+
   # GET /perfiles or /perfiles.json
   def index
     @coleccion = Perfil.all
@@ -45,17 +48,18 @@ class Aplicacion::PerfilesController < ApplicationController
 #    diccionario = YAML.load_file('diccionario.yml')
 #    puts config['last_update'] #in my file this is set to "some data"
 #    diccionario = [IndPalabra::E_ESPANOL, IndPalabra::E_INGLES, IndPalabra::NUMBERS, IndPalabra::EXCEPTIONS]
-      diccionario = {}
-      diccionario['e_espanol'] = IndPalabra::E_ESPANOL
-      diccionario['e_ingles']  = IndPalabra::E_INGLES
-      diccionario['numbers']   = IndPalabra::NUMBERS
-      diccionario['exceptions'] = IndPalabra::EXCEPTIONS
+
+#    diccionario = {}
 #    diccionario['e_espanol']  = IndPalabra::E_ESPANOL
 #    diccionario['e_ingles']   = IndPalabra::E_INGLES
 #    diccionario['numbers']    = IndPalabra::NUMBERS
 #    diccionario['exceptions'] = IndPalabra::EXCEPTIONS
-    File.open('config/diccionario.yml','w') do |h| 
-       h.write diccionario.to_yaml
+#    File.open('config/diccionario.yml','w') do |h| 
+#       h.write diccionario.to_yaml
+#    end
+    Elemento.all.each do |elemento|
+      procesa_elemento(elemento)
+      indexa_registro(elemento)
     end
 
     redirect_to root_path

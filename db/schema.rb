@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_012352) do
+ActiveRecord::Schema.define(version: 2021_04_25_211700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,15 @@ ActiveRecord::Schema.define(version: 2021_04_22_012352) do
     t.index ["sha1"], name: "index_equipos_on_sha1"
   end
 
+  create_table "estrofas", force: :cascade do |t|
+    t.integer "elemento_id"
+    t.integer "n_estrofa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["elemento_id"], name: "index_estrofas_on_elemento_id"
+    t.index ["n_estrofa"], name: "index_estrofas_on_n_estrofa"
+  end
+
   create_table "estructura_poeticas", force: :cascade do |t|
     t.string "estructura_poetica"
     t.integer "owner_id"
@@ -193,7 +202,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_012352) do
   end
 
   create_table "ind_claves", force: :cascade do |t|
-    t.integer "ind_clave"
+    t.string "ind_clave"
     t.integer "ind_estructura_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -266,6 +275,8 @@ ActiveRecord::Schema.define(version: 2021_04_22_012352) do
     t.string "facetas"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "coma_facetas"
+    t.string "rel_facetas"
     t.index ["ind_estructura_id"], name: "index_ind_modelos_on_ind_estructura_id"
     t.index ["ind_modelo"], name: "index_ind_modelos_on_ind_modelo"
   end
@@ -319,7 +330,9 @@ ActiveRecord::Schema.define(version: 2021_04_22_012352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "elemento_id"
+    t.integer "estrofa_id"
     t.index ["elemento_id"], name: "index_lineas_on_elemento_id"
+    t.index ["estrofa_id"], name: "index_lineas_on_estrofa_id"
     t.index ["n_linea"], name: "index_lineas_on_n_linea"
     t.index ["n_parrafo"], name: "index_lineas_on_n_parrafo"
     t.index ["texto_id"], name: "index_lineas_on_texto_id"

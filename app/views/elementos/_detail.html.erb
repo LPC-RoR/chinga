@@ -74,13 +74,16 @@
 				<ul>
 				<%= form.fields_for :soportes do |soportes_form| %>
 					<li>
-						<%= soportes_form.label :soporte %>
+						<%#= soportes_form.label :soporte %>
 
 						<%= soportes_form.select :tipo_soporte_id, TipoSoporte.all.order(:tipo_soporte).collect { |ts| [ts.tipo_soporte, ts.id] }, include_blank: false, prompt: "Seleccione Tipo Soporte" %></br>
 						<%= soportes_form.text_field :soporte, placeholder: 'texto' %>
 						<%= soportes_form.text_field :link, placeholder: 'link' %>
-						<%= soportes_form.check_box :_destroy %>
-						<small><small>Eliminar</small></small>
+
+						<% if action_name == 'edit' %>
+							<%= soportes_form.check_box :_destroy %>
+							<small><small>Eliminar</small></small>
+						<% end %>
 
 					</li>
 				<% end %>

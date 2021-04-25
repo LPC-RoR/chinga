@@ -1,0 +1,22 @@
+<%= form_with(model: estrofa, local: true) do |form| %>
+  <% if estrofa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estrofa.errors.count, "error") %> prohibited this estrofa from being saved:</h2>
+
+      <ul>
+      <% estrofa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :n_estrofa %>
+    <%= form.number_field :n_estrofa %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

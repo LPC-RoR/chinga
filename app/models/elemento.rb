@@ -24,6 +24,7 @@ class Elemento < ApplicationRecord
 	belongs_to :perfil
 
 	has_many :lineas
+	has_many :estrofas
 
 	has_many :clasificaciones, inverse_of: :elemento
 	has_many :listas, through: :clasificaciones
@@ -42,6 +43,10 @@ class Elemento < ApplicationRecord
 
 	def d_letra
 	  self.letra.gsub(/\n/, '<br>')
+	end
+
+	def d_autor
+		(self.tradicional ? 'Tradicional' : self.autor)
 	end
 
 	def d_soporte

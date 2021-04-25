@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :estrofas
   # SCOPE APLICACION
   scope module: 'aplicacion' do
     resources :administradores
@@ -68,7 +69,6 @@ Rails.application.routes.draw do
   resources :clasificaciones
   resources :contribuciones
   resources :elementos do 
-    match :estado, via: :get, on: :member
     match :asignar, via: :get, on: :member
     match :desasignar, via: :get, on: :member
     match :publicar, via: :get, on: :member

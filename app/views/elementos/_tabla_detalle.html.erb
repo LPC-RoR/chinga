@@ -1,0 +1,138 @@
+<table class="table table-sm">
+
+	<!-- TITULO -->
+	<tr>
+		<td><small><b>Título</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.titulo)) %>
+				<small><i><%= objeto.titulo %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.titulo, get_faceta(objeto.titulo) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- AUTOR(ES) -->
+	<tr>
+		<td><small><b>Autor(es)</b></small></td>
+		<td>
+			<% objeto.autor.split(',').each_with_index do |aut, index| %>
+				<% if index != 0 %>
+					</br>
+				<% end %>
+				<% if [0, 1].include?(ind_fcts_texto(aut)) %>
+					<small><i><%= aut %></i></small>
+				<% else %>
+					<small><i><%= link_to aut, get_faceta(aut) %></i></small>
+				<% end %>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- GENERO -->
+	<tr>
+		<td><small><b>Genero autor</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.genero_autor)) %>
+				<small><i><%= objeto.genero_autor %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.genero_autor, get_faceta(objeto.genero_autor) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- CIUDAD -->
+	<tr>
+		<td><small><b>Ciudad autor</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.ciudad_autor)) %>
+				<small><i><%= objeto.ciudad_autor %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.ciudad_autor, get_faceta(objeto.ciudad_autor) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- PAÍS -->
+	<tr>
+		<td><small><b>País</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.pais)) %>
+				<small><i><%= objeto.pais %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.pais, get_faceta(objeto.pais) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- INTERPRETE(S) -->
+	<tr>
+		<td><small><b>Interprete(s)</b></small></td>
+		<td>
+			<% objeto.interprete.split(',').each_with_index do |int, index| %>
+				<% if index != 0 %>
+					</br>
+				<% end %>
+				<% if [0, 1].include?(ind_fcts_texto(int)) %>
+					<small><i><%= int %></i></small>
+				<% else %>
+					<small><i><%= link_to int, get_faceta(int) %></i></small>
+				<% end %>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- AÑO -->
+	<tr>
+		<td><small><b>Año</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.annio_creacion)) %>
+				<small><i><%= objeto.annio_creacion %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.annio_creacion, get_faceta(objeto.annio_creacion) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- AÑO -->
+	<tr>
+		<td><small><b>Forma musical</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.forma_musical)) %>
+				<small><i><%= objeto.forma_musical %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.forma_musical, get_faceta(objeto.forma_musical) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<!-- AÑO -->
+	<tr>
+		<td><small><b>Estructura poética</b></small></td>
+		<td>
+			<% if [0, 1].include?(ind_fcts_texto(objeto.estructura_poetica)) %>
+				<small><i><%= objeto.estructura_poetica %></i></small>
+			<% else %>
+				<small><i><%= link_to objeto.estructura_poetica, get_faceta(objeto.estructura_poetica) %></i></small>
+			<% end %>
+		</td>
+	</tr>
+
+	<% unless @soportes_base.empty? %>
+		<% @soportes_base.each do |soporte| %>
+			<tr>
+				<td><small><b><%= (soporte.tipo_soporte.blank? ? '' : soporte.tipo_soporte.tipo_soporte) %></b></small></td>
+				<td>
+					<% unless soporte.tipo_soporte.blank? %>
+						<% if [0, 1].include?(ind_fcts_texto(soporte.soporte)) %>
+							<small><i><%= soporte.soporte %></i></small>
+						<% else %>
+							<small><i><%= link_to soporte.soporte, get_faceta(soporte.soporte) %></i></small>
+						<% end %>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+
+</table>

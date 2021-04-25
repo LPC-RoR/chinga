@@ -1,0 +1,17 @@
+<table class="table table-sm table-borderless">
+	<% objeto.estrofas.order(:n_estrofa).each do |estrofa| %>
+		<% estrofa.lineas.order(:n_linea).each do |linea| %>
+			<tr>
+				<td align='center'><small><small><%= "#{estrofa.n_estrofa}:#{linea.n_linea}" %></small></small></td>
+				<td>
+					<% if [0, 1].include?(ind_fcts_texto(linea.linea)) %>
+						<small><%= linea.linea %></small>
+					<% else %>
+						<small><%= link_to linea.linea, get_faceta(linea.linea) %></small>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+		<tr><td colspan="2"></td></tr>
+	<% end %>
+</table>

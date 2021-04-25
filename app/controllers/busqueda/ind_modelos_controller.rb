@@ -78,6 +78,6 @@ class Busqueda::IndModelosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ind_modelo_params
-      params.require(:ind_modelo).permit(:ind_modelo, :campos, :ind_estructura_id)
+      params.require(:ind_modelo).permit(:ind_modelo, :campos, :ind_estructura_id, :facetas, :coma_facetas, :rel_facetas)
     end
 end

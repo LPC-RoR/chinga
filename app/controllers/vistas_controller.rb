@@ -4,12 +4,18 @@ class VistasController < ApplicationController
   before_action :carga_temas_ayuda
   before_action :set_vista, only: %i[ show edit update destroy ]
 
+  include ProcesaEstructura
+
   # GET /vistas or /vistas.json
   def index
     activo = Perfil.find(session[:perfil_activo]['id']) if usuario_signed_in?
 
     @coleccion = {}
-    @coleccion['elementos'] = Elemento.where(estado: 'publicada').page(params[:page])
+    if params[:search].blank?
+      @coleccion['elementos'] = Elemento.where(estado: 'publicada').page(params[:page])
+    else
+      @coleccion['elementos'] = busqueda_publicaciones(params[:search], 'Elemento').page(params[:page])
+    end
     @coleccion['listas'] = activo.listas.order(:lista)  if usuario_signed_in?
   end
 
