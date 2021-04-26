@@ -2,7 +2,7 @@
 	<tbody>
 		<tr>
 			<td>
-				<%= image_tag "#{objeto.imagen? ? objeto.imagen.url : 'avatar_defecto.png'}", class: "rounded mx-auto d-block img-thumbnail" %>
+				<%= link_to(image_tag(objeto.imagen? ? objeto.imagen.url : 'avatar_defecto.png'), objeto, class: "rounded mx-auto d-block img-thumbnail") %>
 			</td>
 			<td>
 				<h5 class='text-black'><%= objeto.usuario %></h5>

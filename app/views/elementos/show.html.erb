@@ -4,7 +4,7 @@
 <div class='row'>
 	<div class= 'col-md-4'>
 		<%= render partial: 'aplicacion/perfiles/img_card', locals: {objeto: @objeto.perfil} %>
-		<p class='text-center'><small><%= render partial: 'aplicacion/perfiles/status_perfil', locals: {objeto: @objeto.perfil} %></small></p>
+		<!--p class='text-center'><small><%#= render partial: 'aplicacion/perfiles/status_perfil', locals: {objeto: @objeto.perfil} %></small></p-->
 
 		<%= render partial: 'aplicacion/perfiles/gestion_listas', locals: {objeto: @objeto, coleccion: @mis_listas} if usuario_signed_in?%>
 	</div>
