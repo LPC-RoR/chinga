@@ -1,4 +1,6 @@
 class Busqueda::IndFacetasController < ApplicationController
+  before_action :inicia_sesion
+  before_action :carga_temas_ayuda
   before_action :set_ind_faceta, only: %i[ show edit update destroy ]
 
   # GET /ind_facetas or /ind_facetas.json
