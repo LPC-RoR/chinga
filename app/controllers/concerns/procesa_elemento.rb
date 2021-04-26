@@ -4,7 +4,7 @@ module ProcesaElemento
     def procesa_elemento(objeto)
       lineas = objeto.letra.split("\n")
       n_estrofa = 1
-      estrofa = objeto.estrofas.where(n_estrofa: n_estrofa)
+      estrofa = objeto.estrofas.find_by(n_estrofa: n_estrofa)
       if estrofa.blank?
         estrofa = objeto.estrofas.create(elemento_id: objeto.id, n_estrofa: n_estrofa)
       end
@@ -15,7 +15,7 @@ module ProcesaElemento
         if linea.blank?
           unless n_linea == 1
             n_estrofa += 1
-            estrofa = objeto.estrofas.where(n_estrofa: n_estrofa)
+            estrofa = objeto.estrofas.find_by(n_estrofa: n_estrofa)
             if estrofa.blank?
               estrofa = objeto.estrofas.create(n_estrofa: n_estrofa)
             end
