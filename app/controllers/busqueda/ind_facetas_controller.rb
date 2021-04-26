@@ -8,6 +8,9 @@ class Busqueda::IndFacetasController < ApplicationController
 
   # GET /ind_facetas/1 or /ind_facetas/1.json
   def show
+    elementos_ids = @objeto.ind_indices.where(class_name: 'Elemento')
+    @coleccion = {}
+    @coleccion['elementos'] = Elemento.where(id: elementos_ids).page(params[:page])
   end
 
   # GET /ind_facetas/new
