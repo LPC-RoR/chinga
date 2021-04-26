@@ -57,6 +57,11 @@ class Aplicacion::PerfilesController < ApplicationController
 #    File.open('config/diccionario.yml','w') do |h| 
 #       h.write diccionario.to_yaml
 #    end
+    IndPalabra.delete_all
+    IndClave.delete_all
+    IndFaceta.delete_all
+    IndIndice.delete_all
+
     Elemento.all.each do |elemento|
       procesa_elemento(elemento)
       indexa_registro(elemento)
