@@ -3,3 +3,5 @@
 <%= paginate @coleccion['elementos'] %>
 <%= render partial: 'elementos/img_index', locals: {coleccion: @coleccion['elementos']} %>
 <%= paginate @coleccion['elementos'] %>
+
+<%= "ALERTA DE DIFERENCIAS" if @alerta %>
