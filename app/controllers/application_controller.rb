@@ -33,13 +33,12 @@ class ApplicationController < ActionController::Base
 				@perfil.administrador = @administrador
 				@perfil.save
 			end
-
-			inicia_app
-
 			session[:perfil_base]      = @perfil
 			session[:perfil_activo]    = @perfil
 			session[:administrador]    = @perfil.administrador
 			session[:es_administrador] = @perfil.administrador.present?
+
+			inicia_app
 	    end
 	end
 end
