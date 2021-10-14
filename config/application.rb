@@ -60,7 +60,6 @@ module Chinga
                 detalle_color: 'secondary'
             },
             foot: {
-                active: true,
                 size: 'quarter',
                 clase: 'mx-auto d-block'
             },

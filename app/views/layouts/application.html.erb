@@ -7,7 +7,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= favicon_link_tag asset_path('favicon.ico') if config_aplicacion(:favicon) %>
+    <%= favicon_link_tag asset_path('favicon.ico') unless Rails.application.assets.find_asset("favicon.ico").nil? %>
   </head>
 
   <body>
@@ -15,11 +15,15 @@
     <%= render partial: '0p/navbar/navbar' %>
     <!--            CONTENIDO + MENU DERECHA   -->
     <div class="container-fluid">
-      <%= yield %>          
+      <% if File.exist?("app/views/layouts/_base_layout.html.erb") %>
+        <%= render partial: 'layouts/base_layout' %>
+      <% else %>
+        <%= yield %>
+      <% end %>
     </div>
     <!------------------------------------------->
     </br></br></br>
-    <% if config_foot(:active) %>
+    <% if objeto_tema_ayuda('foot').present? %>
       <%= render partial: 'help/0help/tema_ayuda/0h_ilustracion', locals: {objeto: objeto_tema_ayuda('foot'), class_image: config_foot(:clase), size: config_foot(:size) } %>
     <% end %>
     </br></br></br>

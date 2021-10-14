@@ -7,8 +7,8 @@ class Soporte < ApplicationRecord
 	]
 
 	FORM_FIELDS = [
-		['soporte', 'entry'],
-		['owner_id',     'hidden']
+		['soporte',  'entry'],
+		['owner_id', 'hidden']
 	]
 
 	mount_uploader :imagen, ImagenUploader
