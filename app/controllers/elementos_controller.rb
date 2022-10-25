@@ -1,7 +1,6 @@
 class ElementosController < ApplicationController
   before_action :authenticate_usuario!, except: :show
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_elemento, only: %i[ show edit update destroy estado asignar desasignar eliminar papelera publicar ]
 
   before_action :corrige_elemento, only: :edit

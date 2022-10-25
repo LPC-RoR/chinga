@@ -1,33 +1,59 @@
-	module RecursosHelper
-	## ------------------------------------------------------- MENU
+module RecursosHelper
+	## ------------------------------------------------------- GENERAL
 
-	def menu
-	    ## Menu principal de la aplicación
-	    # [0] : Item del menú
-	    # [1] : Link del ítem
-	    # [2] : Tipo de ítem {'admin', 'usuario', 'anonimo', 'excluir'}
-	    # se usa directamente en 0p/navbar/_navbar.html.erb
-	    [
-	        ['Perfil',         "/perfiles/activo",    'usuario'],
-	        ["Colección",      "/vistas",             'anonimo'],
-	        ["Mis Contribuciones", "/contribuciones", 'usuario'],
-	#        ["Equipos",        "/equipos",         'usuario'],
-	#        ["Listas",         "/listas",          'usuario'],
-	        ['Parámetros',      '/parametros',          'admin'],    
-	        ["Administradores", "/administradores",     'admin'],
-	        ["Temas Ayuda",     "/tema_ayudas",         'admin'],
-	        ["Estructuras",     "/ind_estructuras",       'dog'],
-	        ['Proceso',         '/perfiles/proceso',      'dog'] 
-	    ]
+#	def app_setup
+#		{
+#			nombre: 'vi&v',
+#			home_link: 'http://www.chinga.cl'
+#		}
+#	end
+
+	def portada_setup
+		{
+			size: nil,
+			clase: 'mx-auto d-block'
+		}
 	end
 
-	def display_item_app(item, tipo_item)
-		true
+	def tema_home_setup
+		{
+            size: 'half',
+            clase: 'mx-auto d-block',
+            titulo_size: 1,
+            titulo_color: 'secondary',
+            detalle_size: 6,
+            detalle_color: 'secondary'
+		}
+	end
+
+	def foot_setup
+		{
+            size: 'quarter',
+            clase: 'mx-auto d-block'
+		}
+	end
+
+	def app_color
+		{
+			app: 'dark',
+			navbar: 'dark',
+			help: 'dark',
+			data: 'success'
+		}
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS
 
-	def tr_row(objeto)
+	def sortable_fields
+		{
+			'controller' => ['campo1', 'campo2']
+		}
+	end
+
+	# En modelo.html.erb define el tipo de tabla con la que se despliegan las tablas
+	# <tr class="table-<%=tr_row(objeto)%>">
+	# ex 'tr_row'
+	def table_class(objeto)
 		case objeto.class.name
 		when 'Publicacion'
 			if usuario_signed_in?
@@ -40,7 +66,15 @@
 		end
 	end
 
-	def crud_conditions(objeto, btn)
+	def app_alias_tabla(controller)
+		controller
+	end
+
+	def app_new_button_conditions(controller)
+		true
+	end
+
+	def app_crud_conditions(objeto, btn)
 		case objeto.class.name
 		when 'Elemento'
 			usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id'] and controller_name == 'contribuciones' and objeto.estado == 'publicada'
@@ -61,6 +95,10 @@
 		else
 			['TemaAyuda', 'Tutorial', 'Paso'].include?(objeto.class.name) ? (usuario_signed_in? ? session[:es_administrador] : false) : true
 		end
+	end
+
+	def estados_conditions(objeto)
+		false
 	end
 
 	def x_conditions(objeto, btn)
@@ -96,30 +134,10 @@
 		true
 	end
 
-	## ------------------------------------------------------- FORM & SHOW
-
-	def detail_controller_path(controller)
-		if ['elementos', 'soportes'].include?(controller)
-			"#{controller}/detail"
-		else
-			'0p/form/detail'
-		end
-	end
-
-	# apoyo de filtro_condicional_field? (abajo)
-	def get_field_condition(objeto, field)
-		case objeto.class.name
-		when 'Elemento'
-			true
-		when 'Mensaje'
-			field != 'email' or not usuario_signed_in?
-		end
-	end
-
 	## ------------------------------------------------------- SHOW
 
 	# Método de apoyo usado en get_new_link (abajo)
-	def show_title(objeto)
+	def app_show_title(objeto)
 		case objeto.class.name
 		when 'Elemento'
 			objeto.titulo
@@ -143,21 +161,6 @@
 				['Corrección', "/elementos/#{objeto.id}/estado?estado=correccion",   (objeto.estado == 'publicada' and usuario_signed_in? and objeto.perfil.id == session[:perfil_activo]['id']) ]
 			]
 		end
-	end
-
-	## ------------------------------------------------------- BUSCADOR
-
-	def excepciones
-		{
-			pronombres:    true,
-			articulos:     true,
-			proposiciones: true,
-			conjunciones:  true,
-			adverbios:    false,
-			verboser:      true,
-			numbers:       true,
-			exceptions:    true
-		}
 	end
 
 end

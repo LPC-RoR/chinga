@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%=config_aplicacion(:nombre_aplicacion)%></title>
+    <title><%=app_setup[:nombre]%></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,14 +18,20 @@
       <% if File.exist?("app/views/layouts/_base_layout.html.erb") %>
         <%= render partial: 'layouts/base_layout' %>
       <% else %>
-        <%= yield %>
+
+        <!-- APAGADO -->
+        <%# if controller_name == 'st_bandejas' or app_bandeja_controllers.include?(controller_name) %>
+            <%#= render partial: 'layouts/bandejas' %>
+        <%# elsif sidebar_controllers.include?(controller_name) and action_name != 'home' %>
+            <%#= render partial: 'layouts/sidebar' %>
+        <%# else %>
+          <%= yield %>
+        <%# end %>
+
       <% end %>
     </div>
     <!------------------------------------------->
-    </br></br></br>
-    <% if objeto_tema_ayuda('foot').present? %>
-      <%= render partial: 'help/0help/tema_ayuda/0h_ilustracion', locals: {objeto: objeto_tema_ayuda('foot'), class_image: config_foot(:clase), size: config_foot(:size) } %>
-    <% end %>
-    </br></br></br>
+    <hr>
+    <%#= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Foot', size: image_size[:foot]} %>
   </body>
 </html>

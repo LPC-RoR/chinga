@@ -1,6 +1,5 @@
 class Aplicacion::ObservacionesController < ApplicationController
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_observacion, only: %i[ show edit update destroy ]
 
   # GET /observaciones or /observaciones.json

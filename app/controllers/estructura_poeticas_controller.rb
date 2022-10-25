@@ -1,7 +1,6 @@
 class EstructuraPoeticasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_estructura_poetica, only: %i[ show edit update destroy ]
 
   # GET /estructura_poeticas or /estructura_poeticas.json

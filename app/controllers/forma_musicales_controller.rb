@@ -1,7 +1,6 @@
 class FormaMusicalesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_forma_musical, only: %i[ show edit update destroy ]
 
   # GET /forma_musicales or /forma_musicales.json

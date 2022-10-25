@@ -1,7 +1,6 @@
 class HerenciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_herencia, only: %i[ show edit update destroy ]
 
   # GET /herencias or /herencias.json

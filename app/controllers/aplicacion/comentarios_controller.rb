@@ -1,6 +1,5 @@
 class Aplicacion::ComentariosController < ApplicationController
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_comentario, only: %i[ show edit update destroy ]
 
   # GET /comentarios or /comentarios.json

@@ -1,7 +1,6 @@
 class VistasController < ApplicationController
   before_action :authenticate_usuario!, only: [:escritorio]
   before_action :inicia_sesion
-  before_action :carga_temas_ayuda
   before_action :set_vista, only: %i[ show edit update destroy ]
 
   include ProcesaEstructura
