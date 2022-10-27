@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'mimemagic', '~> 0.3.10'
+
 # PostgreSQL
 gem 'pg'
 
@@ -20,8 +22,6 @@ gem "chartkick"
 gem 'carrierwave', '~> 2.0'
 
 gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
-
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.4'
