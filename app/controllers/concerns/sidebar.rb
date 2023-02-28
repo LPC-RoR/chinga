@@ -1,4 +1,6 @@
-# SIDEBAR
+module Sidebar
+	extend ActiveSupport::Concern
+	# SIDEBAR
 
 	def get_lista(nombre)
 		lista = SbLista.find_by(lista: nombre)
