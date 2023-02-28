@@ -14,7 +14,7 @@ class GeneroAutoresController < ApplicationController
 
   # GET /genero_autores/new
   def new
-    @objeto = GeneroAutor.new(owner_id: session[:perfil_activo]['id'])
+    @objeto = GeneroAutor.new(owner_id: perfil_activo_id)
   end
 
   # GET /genero_autores/1/edit

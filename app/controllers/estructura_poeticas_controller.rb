@@ -14,7 +14,7 @@ class EstructuraPoeticasController < ApplicationController
 
   # GET /estructura_poeticas/new
   def new
-    @objeto = EstructuraPoetica.new(owner_id: session[:perfil_activo]['id'])
+    @objeto = EstructuraPoetica.new(owner_id: perfil_activo_id)
   end
 
   # GET /estructura_poeticas/1/edit

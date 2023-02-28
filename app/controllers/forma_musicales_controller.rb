@@ -14,7 +14,7 @@ class FormaMusicalesController < ApplicationController
 
   # GET /forma_musicales/new
   def new
-    @objeto = FormaMusical.new(owner_id: session[:perfil_activo]['id'])
+    @objeto = FormaMusical.new(owner_id: perfil_activo_id)
   end
 
   # GET /forma_musicales/1/edit

@@ -14,7 +14,7 @@ class TipoSoportesController < ApplicationController
 
   # GET /tipo_soportes/new
   def new
-    @objeto = TipoSoporte.new(owner_id: session[:perfil_activo]['id'])
+    @objeto = TipoSoporte.new(owner_id: perfil_activo_id)
   end
 
   # GET /tipo_soportes/1/edit
