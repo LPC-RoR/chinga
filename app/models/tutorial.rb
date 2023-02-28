@@ -1,7 +1,9 @@
 class Tutorial < ApplicationRecord
 	TABLA_FIELDS = [
-		['orden',      'normal'],
-		['tutorial',     'show']
+		'orden',
+		's#tutorial'
+#		['orden',      'normal'],
+#		['tutorial',     'show']
 #		['archivo', 'link_file']
 	]
 

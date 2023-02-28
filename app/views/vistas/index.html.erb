@@ -9,7 +9,7 @@
 	<div class='col-md-4'>
 		<% if usuario_signed_in? %>
 			<%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Listas', size: '5'} %>
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'listas', a: 'index'} %>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'listas', a: 'index'} %>
 		<% end %>
 	</div>
 </div>

@@ -3,7 +3,8 @@ class Soporte < ApplicationRecord
 	require 'carrierwave/orm/activerecord'
 
 	TABLA_FIELDS = [
-		['soporte', 'normal']
+		'soporte'
+#		['soporte', 'normal']
 	]
 
 	FORM_FIELDS = [

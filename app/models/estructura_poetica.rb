@@ -1,6 +1,7 @@
 class EstructuraPoetica < ApplicationRecord
 	TABLA_FIELDS = [
-		['estructura_poetica', 'normal']
+		'estructura_poetica'
+#		['estructura_poetica', 'normal']
 	]
 
 	FORM_FIELDS = [

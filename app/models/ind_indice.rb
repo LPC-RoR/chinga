@@ -1,7 +1,9 @@
 class IndIndice < ApplicationRecord
 	TABLA_FIELDS = [
-		['class_name', 'normal'],
-		['objeto_id', 'normal']
+		'class_name',
+		'objeto_id'
+#		['class_name', 'normal'],
+#		['objeto_id', 'normal']
 	]
 
 	belongs_to :ind_estructura

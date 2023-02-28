@@ -1,6 +1,7 @@
 class IndModelo < ApplicationRecord
 	TABLA_FIELDS = [
-		['ind_modelo', 'normal']
+		'ind_modelo'
+#		['ind_modelo', 'normal']
 	]
 
 	FORM_FIELDS = [

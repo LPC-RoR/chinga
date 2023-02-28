@@ -1,6 +1,7 @@
 class Lista < ApplicationRecord
 	TABLA_FIELDS = [
-		['lista',         'show']
+		'lista'
+#		['lista',         'show']
 	]
 
  	FORM_FIELDS = [

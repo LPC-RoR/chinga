@@ -5,8 +5,10 @@ class IndPalabra < ApplicationRecord
 	EXCEPTIONS = ['abstract', 'pp']
 
 	TABLA_FIELDS = [
-		['ind_palabra', 'show'],
-		['d_indices', 'normal']
+		's#ind_palabra',
+		'd_indices'
+#		['ind_palabra', 'show'],
+#		['d_indices', 'normal']
 	]
 
 	belongs_to :ind_lenguaje, optional: true

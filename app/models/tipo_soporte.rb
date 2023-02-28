@@ -1,6 +1,7 @@
 class TipoSoporte < ApplicationRecord
 	TABLA_FIELDS = [
-		['tipo_soporte', 'normal']
+		'tipo_soporte'
+#		['tipo_soporte', 'normal']
 	]
 
 	FORM_FIELDS = [

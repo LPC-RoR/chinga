@@ -1,6 +1,7 @@
 class Rueda < ApplicationRecord
 	TABLA_FIELDS = [
-		['rueda', 'show']
+		's#rueda'
+#		['rueda', 'show']
 #		['sha1', 'normal']
 	]
 

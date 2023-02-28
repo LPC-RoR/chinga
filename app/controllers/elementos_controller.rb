@@ -20,8 +20,8 @@ class ElementosController < ApplicationController
   # GET /elementos/1 or /elementos/1.json
   def show
     if usuario_signed_in?
-      @activo = Perfil.find(session[:perfil_activo]['id'])
-      @mis_listas = @activo.listas.order(:lista)
+#      @activo = Perfil.find(session[:perfil_activo]['id'])
+      @mis_listas = perfil_activo.listas.order(:lista)
     end
 
     tipos_soporte_ids = TipoSoporte.where(tipo_soporte: ['Disco', 'Libro']).ids
@@ -36,8 +36,8 @@ class ElementosController < ApplicationController
 
   # GET /elementos/new
   def new
-    @activo = Perfil.find(session[:perfil_activo]['id'])
-    @objeto = @activo.contribuciones.new(estado: 'publicada')
+#    @activo = Perfil.find(session[:perfil_activo]['id'])
+    @objeto = perfil_activo.contribuciones.new(estado: 'publicada')
     4.times { @objeto.soportes.build }
   end
 

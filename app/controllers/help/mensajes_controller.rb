@@ -6,7 +6,7 @@ class Help::MensajesController < ApplicationController
   # GET /mensajes.json
   def index
 
-    @activo = Perfil.find(session[:perfil_activo]['id'])
+#    @activo = Perfil.find(session[:perfil_activo]['id'])
 
     @tabs = ['ingreso', 'enviados', 'recibidos', 'cerrados']
     if params[:html_options].blank?
@@ -19,7 +19,7 @@ class Help::MensajesController < ApplicationController
     @coleccion = {}
 
 
-    coleccion_base = session[:es_administrador] ? Mensaje.all : @activo.mensajes
+    coleccion_base = session[:es_administrador] ? Mensaje.all : perfil_activo.mensajes
     encabezados = coleccion_base.where.not(tipo: 'respuesta')
 
     autenticados = Mensaje.where.not(perfil_id: nil)

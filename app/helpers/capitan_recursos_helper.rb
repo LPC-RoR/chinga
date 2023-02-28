@@ -54,6 +54,22 @@ module CapitanRecursosHelper
 		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}
 	end
 
+	## ------------------------------------------------------- SCOPES & PARTIALS
+
+	def app_controllers_scope
+		{
+			busqueda: ['ind_estructuras', 'ind_palabras']
+		}
+	end
+
+	def app_scope_controller(controller)
+		if app_controllers_scope[:busqueda].include?(controller)
+			'busqueda'
+		else
+			nil
+		end
+	end
+
 	## ------------------------------------------------------- TABLA | BTNS
 
 	def sortable_fields

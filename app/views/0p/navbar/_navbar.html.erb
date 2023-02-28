@@ -25,6 +25,14 @@
               <% end %>
             <% end %>
         <% end %>
+        
+        <% if usuario_signed_in? %>
+          <!-- DROPDOWN MENU DE DOCUMENTOS -->
+          <%#= render partial: '0p/navbar/d_down_documentos', locals: {nombre: 'Documentos', drop_items: nil} %>
+          <!-- DROPDOWN MENU DE VALORES -->
+          <%#= render partial: '0p/navbar/d_down_pesos', locals: {nombre: 'Valores', drop_items: nil} %>
+        <% end %>
+
         <!-- Recursos -->
         <%= render partial: 'aplicacion/parciales/recursos_dropdown_menu' if usuario_signed_in? and optional_menu_item[:recursos] %>
       </ul>
@@ -43,22 +51,23 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-<!-- APAGADO -->
         <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: ayuda_app_recursos_path, active: (controller_name == 'app_recursos' and action_name == 'ayuda'), delete: false, gly: 'question-square'} %>
 
         <% if usuario_signed_in? %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Salir', link: destroy_usuario_session_path, active: false, delete: true, gly: nil} %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open'} %>
 
         <% else %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Ingreso', link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: nil} %>
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Registro', link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: nil} %>
-
+          <!-- INGRESO -->
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: 'person'} %>
+          <!-- REGISTRO -->
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: 'person-plus'} %>
+          
         <% end %>
 
       </ul>

@@ -29,7 +29,7 @@
 		<%#= render partial: '0p/general/titulo', locals: {c: 'soportes', a: nil, titulo: 'Soportes', size: '5'} %>
 		<%= render partial: 'soportes/img_index', locals: {coleccion: @coleccion['soportes']} %>
 		<% if usuario_signed_in? %>
-			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'soportes'} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'soportes', gly: 'plus-circle'} if @objeto.perfil.id == session[:perfil_activo]['id'] %>
 		<% end %>
 	</div>
 </div>

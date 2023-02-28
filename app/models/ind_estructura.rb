@@ -1,6 +1,7 @@
 class IndEstructura < ApplicationRecord
 	TABLA_FIELDS = [
-		['ind_estructura', 'show']
+		's#ind_estructura'
+#		['ind_estructura', 'show']
 	]
 
 	FORM_FIELDS = [

@@ -1,6 +1,7 @@
 class GeneroAutor < ApplicationRecord
 	TABLA_FIELDS = [
-		['genero_autor', 'normal']
+		'genero_autor'
+#		['genero_autor', 'normal']
 	]
 
 	FORM_FIELDS = [

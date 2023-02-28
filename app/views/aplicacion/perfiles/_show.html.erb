@@ -5,14 +5,14 @@
 		<br>
 		<% if action_name == 'activo' %>
 			<div class="col text-center">
-				<%= render partial: '0p/tabla/btn', locals: {texto: 'Editar Perfil', link: [:edit, @objeto], delete: false, clr: c_color(@objeto.class.name.tableize)} %>
+				<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Editar Perfil', link: [:edit, @objeto], delete: false, clr: color(@objeto.class.name.tableize)} %>
 			</div>
 		<% end %>
 	</div>
 	<div class='col-md-8'>
 		<%= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Listas', size: '5'} %>
 		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'listas', a: 'index'} %>
-		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'listas'} if action_name == 'activo' %>
+		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'listas', gly: 'plus-circle'} if action_name == 'activo' %>
 	</div>
 	<!--div class='col-md-4'-->
 		<%#= render partial: '0p/general/titulo', locals: {c: 'listas', a: nil, titulo: 'Ruedas', size: '5'} %>

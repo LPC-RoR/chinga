@@ -1,6 +1,7 @@
 class IndExpresion < ApplicationRecord
 	TABLA_FIELDS = [
-		['ind_expresion', 'show']
+		'ind_expresion'
+#		['ind_expresion', 'show']
 	]
 
 	belongs_to :ind_estructura

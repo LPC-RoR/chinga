@@ -1,7 +1,9 @@
 class Administrador < ApplicationRecord
 	TABLA_FIELDS = [
-		['administrador', 'normal'], 
-		['email',         'normal']
+		'administrador',
+		'email'
+#		['administrador', 'normal'], 
+#		['email',         'normal']
 	]
 
  	FORM_FIELDS = [

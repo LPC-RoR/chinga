@@ -1,8 +1,11 @@
 class Mensaje < ApplicationRecord
 	TABLA_FIELDS = [
-		['fecha_envio', 'diahora'], 
-		['mensaje',        'show'],
-		['email',        'normal']
+		'fecha_envio',
+		's#mensaje',
+		'email'
+#		['fecha_envio', 'diahora'], 
+#		['mensaje',        'show'],
+#		['email',        'normal']
 	]
 
 

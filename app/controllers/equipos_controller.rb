@@ -11,9 +11,9 @@ class EquiposController < ApplicationController
       @tab = params[:html_options][:tab].blank? ? 'Administrados' : params[:html_options][:tab]
     end
 
-    @activo = Perfil.find(session[:perfil_activo]['id'])
+#    @activo = Perfil.find(session[:perfil_activo]['id'])
 
-    @coleccion = (@tab == 'Administrados') ? @activo.equipos : @activo.participaciones
+    @coleccion = (@tab == 'Administrados') ? perfil_activo.equipos : perfil_activo.participaciones
 
     @options = {'tab' => @tab}
   end
@@ -21,7 +21,7 @@ class EquiposController < ApplicationController
   # GET /equipos/1 or /equipos/1.json
   def show
     session[:equipo_id] = @objeto.id
-    @activo = Perfil.find(session[:perfil_activo]['id'])
+#    @activo = Perfil.find(session[:perfil_activo]['id'])
 
     if params[:html_options].blank?
       @tab = 'listas'
@@ -42,17 +42,17 @@ class EquiposController < ApplicationController
 
   def nuevo
     unless params[:nuevo_equipo][:equipo].blank?
-      @activo = Perfil.find(session[:perfil_activo]['id'])
+#      @activo = Perfil.find(session[:perfil_activo]['id'])
       case params[:tab]
       when 'Administrados'
         @texto_sha1 = session[:perfil_activo]['email']+params[:nuevo_equipo][:equipo]
         @sha1 = Digest::SHA1.hexdigest(@texto_sha1)
-        @equipo = @activo.equipos.create(equipo: params[:nuevo_equipo][:equipo], sha1: @sha1)
+        @equipo = perfil_activo.equipos.create(equipo: params[:nuevo_equipo][:equipo], sha1: @sha1)
       when 'Participaciones'
         @sha1 = params[:nuevo_equipo][:equipo]
         @equipo = Equipo.find_by(sha1: @sha1)
         unless @equipo.blank?
-          @activo.asociaciones << @equipo
+          perfil_activo.asociaciones << @equipo
         end
       end
 

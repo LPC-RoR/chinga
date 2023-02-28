@@ -5,8 +5,8 @@ class ListasController < ApplicationController
 
   # GET /listas or /listas.json
   def index
-    @activo = Perfil.find(session[:perfil_activo]['id'])
-    @coleccion =  @activo.listas
+#    @activo = Perfil.find(session[:perfil_activo]['id'])
+    @coleccion =  perfil_activo.listas
   end
 
   # GET /listas/1 or /listas/1.json
@@ -27,8 +27,8 @@ class ListasController < ApplicationController
   def nuevo
     @elemento = Elemento.find(params[:elemento_id])
     unless params[:nueva_lista][:lista].blank?
-      @activo = Perfil.find(session[:perfil_activo]['id'])
-      @activo.listas.create(lista: params[:nueva_lista][:lista])
+#      @activo = Perfil.find(session[:perfil_activo]['id'])
+      perfil_activo.listas.create(lista: params[:nueva_lista][:lista])
     end
 
     redirect_to @elemento

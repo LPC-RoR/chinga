@@ -1,6 +1,7 @@
 class FormaMusical < ApplicationRecord
 	TABLA_FIELDS = [
-		['forma_musical', 'normal']
+		'forma_musical'
+#		['forma_musical', 'normal']
 	]
 
 	FORM_FIELDS = [

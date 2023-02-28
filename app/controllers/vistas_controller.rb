@@ -7,15 +7,13 @@ class VistasController < ApplicationController
 
   # GET /vistas or /vistas.json
   def index
-    activo = Perfil.find(session[:perfil_activo]['id']) if usuario_signed_in?
-
     @coleccion = {}
     if params[:search].blank?
       @coleccion['elementos'] = Elemento.where(estado: 'publicada').page(params[:page])
     else
       @coleccion['elementos'] = busqueda_publicaciones(params[:search], 'Elemento').page(params[:page])
     end
-    @coleccion['listas'] = activo.listas.order(:lista)  if usuario_signed_in?
+    @coleccion['listas'] = perfil_activo.listas.order(:lista)  if usuario_signed_in?
   end
 
   # GET /vistas/1 or /vistas/1.json

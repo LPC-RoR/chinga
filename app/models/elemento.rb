@@ -4,10 +4,14 @@ class Elemento < ApplicationRecord
 
 	# Campos qeu se despliegan en la tabla
 	TABLA_FIELDS = [
-		['titulo',           'show'], 
-		['autor',          'normal'], 
-		['d_soporte',      'normal'], 
-		['annio_creacion', 'normal']
+		's#titulo',
+		'autor',
+		'd_soporte',
+		'annio_creacion'
+#		['titulo',           'show'], 
+#		['autor',          'normal'], 
+#		['d_soporte',      'normal'], 
+#		['annio_creacion', 'normal']
 	]
 
 	SHOW_FIELDS = [
