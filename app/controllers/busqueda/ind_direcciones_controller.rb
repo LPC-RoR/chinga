@@ -1,4 +1,4 @@
-+class Busqueda::IndDireccionesController < ApplicationController
+class Busqueda::IndDireccionesController < ApplicationController
   before_action :inicia_sesion
   before_action :set_ind_direccion, only: [:show, :edit, :update, :destroy]
 

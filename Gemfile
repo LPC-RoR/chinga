@@ -3,8 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'mimemagic', '~> 0.3.10'
-
 # PostgreSQL
 gem 'pg'
 
